@@ -1,0 +1,60 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    transition: width 0.3s;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar.collapsed {
+    width: 80px;
+  }
+
+  .sidebar .nav-link {
+    color: white;
+    margin: 10px 0;
+  }
+
+  .sidebar .nav-link:hover {
+    background-color: #495057;
+  }
+
+  /* Footer Section in Sidebar */
+  .sidebar-footer {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #495057;
+  }
+
+  .sidebar-footer .btn {
+    width: 100%;
+  }
+
+  /* Main Content */
+  .content {
+    margin-left: 250px;
+    transition: margin-left 0.3s;
+    padding: 20px;
+  }
+
+  .collapsed + .content {
+    margin-left: 80px;
+  }
+
+  /* Hamburger Icon */
+  .hamburger-icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+  }

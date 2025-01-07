@@ -1,0 +1,24 @@
+<div class="parent">
+  <div class="login-box">
+    <form action="#">
+      <h2>Login</h2>
+      <div class="input-box">
+        <span class="icon">
+          <i class="fa-solid fa-envelope"></i>
+        </span>
+        <input type="emal" [(ngModel)]="loginObj.username" name="username" required>
+        <label for="">Email</label>
+      </div>
+      <div class="input-box">
+        <span class="icon">
+          <i class="fa-solid fa-lock"></i>
+        </span>
+        <input type="password"  [(ngModel)]="loginObj.password" name="password" required>
+        <label for="">password</label>
+      </div>
+     
+      <button type="button" (click)="onLogin()">Login</button>
+     
+    </form>
+  </div>
+</div>

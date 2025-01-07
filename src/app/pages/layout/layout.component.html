@@ -1,0 +1,30 @@
+<button class="hamburger-icon btn btn-dark"  (click)="toggleSidebar()">
+    ☰
+  </button>
+
+  <!-- Sidebar -->
+  <div [class]="isSidebarCollapsed() ?'sidebar':'sidebar collapsed'"  id="sidebar">
+    <!-- Navigation Links -->
+    <ul class="nav flex-column p-2">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="student">Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+      </li>
+    </ul>
+
+    <!-- Footer Section -->
+    <div class="sidebar-footer">
+      <p class="mb-2">Hello, <span id="username">John Doe</span></p>
+      <button class="btn btn-danger btn-sm" id="logOffButton">Log Off</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div [class]="isSidebarCollapsed() ?'content':'content collapsed'">
+     <router-outlet></router-outlet>
+  </div>

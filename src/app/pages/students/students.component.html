@@ -1,0 +1,91 @@
+<div class="header">
+    <h1>Student CRUD</h1>
+    <button id="addBtn" data-bs-toggle="modal" data-bs-target="#myModal">Add Student</button>
+  </div>
+
+  <div class="row">
+    <div class="col-3">
+        <div class="card-grid" id="cardGrid">
+            <!-- Example card -->
+            <div class="card-custom">
+              <h3>John Doe</h3>
+              <p>Email: john example.com</p>
+              <p>Phone: 1234567890</p>
+              <p>City: New York</p>
+              <button class="edit">Edit</button>
+              <button class="seperator">|</button>
+              <button class="delete">Delete</button>
+            </div>
+          </div>
+    </div>
+  </div>
+ 
+
+  <!-- Modal -->
+  <!-- Modal -->
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">Student Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="studentForm">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="name" placeholder="Name" required />
+                      </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" class="form-control" id="email" placeholder="Email" required />
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-phone-alt"></i>
+                        <input type="text" class="form-control" id="phone" placeholder="Phone" required />
+                      </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" class="form-control" id="address" placeholder="Address" required />
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-city"></i>
+                        <input type="text" class="form-control" id="city" placeholder="City" required />
+                      </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <i class="fas fa-map-pin"></i>
+                        <input type="text" class="form-control" id="pinCode" placeholder="Pin Code" required />
+                      </div>
+                </div>
+            </div>
+           
+         
+            
+           
+            
+           
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="studentForm">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
