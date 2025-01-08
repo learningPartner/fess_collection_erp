@@ -20,6 +20,7 @@ export class DashboardComponent {
   recentEnrollment: IEnrollments[] = [];
   recentFees: IFeeDetailsResponse | null = null;
   cards: any[] = [];
+  totalFeesReceived = 0;
 
   sidebarVisible: boolean = true;
 
@@ -79,6 +80,13 @@ export class DashboardComponent {
     this.paymentService.loadFees().subscribe((data: any) => {
       if (data && data.result) {
         this.recentFees = data;
+        this.totalFeesReceived = data.feeDetails.reduce(
+          (sum: number, feeDetail: any) => {
+            return sum + feeDetail.amount;
+          },
+          0
+        );
+        this.updateCards();
       }
     });
   }
@@ -109,7 +117,7 @@ export class DashboardComponent {
         },
         {
           title: 'Fees Received',
-          value: this.dashboardData.todaysFeesReceived,
+          value: this.totalFeesReceived,
           icon: 'bi bi-cash',
           iconClass:
             'icon icon-shape bg-success text-white text-lg rounded-circle',
