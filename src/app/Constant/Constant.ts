@@ -4,7 +4,7 @@ const envirURL = environment.API_URL;
 
 export const Constant = {
   VALIDATION_MESSAGE: {
-    REQUIRED: 'This Is Required',
+    REQUIRED: { Email: 'Email is required', Password: 'Password is required' },
   },
   REGULAR_EXPRESSION: {
     EMAIL: '',
