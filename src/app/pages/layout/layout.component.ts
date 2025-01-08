@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { IUserObj } from '../../Model/login';
 
 @Component({
   selector: 'app-layout',
@@ -10,6 +11,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class LayoutComponent {
   isSidebarCollapsed = signal<boolean>(true);
   sidebarVisible: boolean = true;
+
+  router = inject(Router);
 
   menuItems = [
     {
@@ -41,5 +44,16 @@ export class LayoutComponent {
 
   toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
+  }
+
+  loginObj: IUserObj = {
+    username: '',
+    password: '',
+  };
+
+  onLogout() {
+    this.loginObj.username = '';
+    this.loginObj.password = '';
+    this.router.navigateByUrl('/login');
   }
 }

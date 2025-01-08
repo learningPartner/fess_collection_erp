@@ -7,34 +7,35 @@
           <i class="fa-solid fa-envelope"></i>
         </span>
         <input
-          type="emal"
+          type="email"
           [(ngModel)]="loginObj.username"
           name="username"
           #username="ngModel"
+          id="username"
           required
         />
-        <label for="">Email</label>
+        <label for="username">Email</label>
         @if(username.invalid && username.touched){
         <div class="text-white">
           {{ username.errors?.['required'] ? requiredMessage.Email : '' }}
         </div>
         }
       </div>
-      <div>
-        <div class="input-box">
-          <span class="icon">
-            <i class="fa-solid fa-lock"></i>
-          </span>
-          <input
-            type="password"
-            [(ngModel)]="loginObj.password"
-            name="password"
-            #password="ngModel"
-            required
-          />
-          <label for="">Password</label>
-        </div>
-        @if(password.invalid && password.touched){
+
+      <div class="input-box">
+        <span class="icon">
+          <i class="fa-solid fa-lock"></i>
+        </span>
+        <input
+          type="password"
+          [(ngModel)]="loginObj.password"
+          name="password"
+          #password="ngModel"
+          id="password"
+          required
+        />
+        <label for="password">Password</label>@if(password.invalid &&
+        password.touched){
         <div class="text-white mt-1">
           {{ username.errors?.['required'] ? requiredMessage.Password : '' }}
         </div>

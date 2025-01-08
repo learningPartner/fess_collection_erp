@@ -31,7 +31,13 @@
   <!-- Footer Section -->
   <div class="sidebar-footer">
     <p class="mb-2">Hello, <span id="username">John Doe</span></p>
-    <button class="btn btn-danger btn-sm" id="logOffButton">Log Off</button>
+    <button
+      class="btn btn-danger btn-sm"
+      id="logOffButton"
+      (click)="onLogout()"
+    >
+      Log Off
+    </button>
   </div>
 </div>
 
