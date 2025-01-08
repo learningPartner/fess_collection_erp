@@ -4,10 +4,11 @@ import { EnrollmentService } from '../../services/enrollment.service';
 import { DashboardService } from '../../services/dashboard.service';
 import { IFeeDetailsResponse } from '../../Model/fees';
 import { PaymentService } from '../../services/payment.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

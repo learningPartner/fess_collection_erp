@@ -121,7 +121,7 @@
                       <td>{{ enrollment.enrollId }}</td>
                       <td>{{ enrollment.name }}</td>
                       <td>
-                        {{ enrollment.enrollDate }}
+                        {{ enrollment.enrollDate | date : "MMM d, y, h:mm a" }}
                       </td>
                       <td>{{ enrollment.batchId }}</td>
                       <td>{{ enrollment.totalFees }}</td>
@@ -155,7 +155,7 @@
                       <td>{{ fee.name }}</td>
                       <td>{{ fee.batchId }}</td>
                       <td>
-                        {{ fee.enrollDate }}
+                        {{ fee.enrollDate | date : "MMM d, y, h:mm a" }}
                       </td>
                       <td>{{ fee.totalFees }}</td>
                     </tr>
