@@ -4,11 +4,11 @@ import { EnrollmentService } from '../../services/enrollment.service';
 import { DashboardService } from '../../services/dashboard.service';
 import { IFeeDetailsResponse } from '../../Model/fees';
 import { PaymentService } from '../../services/payment.service';
-import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [DatePipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -22,6 +22,7 @@ export class DashboardComponent {
   recentFees: IFeeDetailsResponse | null = null;
   cards: any[] = [];
   totalFeesReceived = 0;
+  formatedAmount = '';
 
   sidebarVisible: boolean = true;
 
@@ -87,9 +88,20 @@ export class DashboardComponent {
           },
           0
         );
+        this.formatedAmount = this.formatAmount(this.totalFeesReceived);
         this.updateCards();
       }
     });
+  }
+
+  formatAmount(amount: number): string {
+    if (amount >= 1_000_000) {
+      return (amount / 1_000_000).toFixed(1) + 'M';
+    } else if (amount >= 1_000) {
+      return (amount / 1_000).toFixed(1) + 'K';
+    } else {
+      return amount.toString();
+    }
   }
 
   updateCards() {
@@ -118,7 +130,7 @@ export class DashboardComponent {
         },
         {
           title: 'Fees Received',
-          value: this.totalFeesReceived,
+          value: this.formatedAmount,
           icon: 'bi bi-cash',
           iconClass:
             'icon icon-shape bg-success text-white text-lg rounded-circle',
