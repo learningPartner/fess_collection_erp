@@ -108,6 +108,27 @@ export class DashboardComponent {
           iconClass:
             'icon icon-shape bg-success text-white text-lg rounded-circle',
         },
+        {
+          title: 'Weekly Enrollment',
+          value: this.dashboardData.weeklyEnrollments,
+          icon: 'bi bi-people',
+          iconClass:
+            'icon icon-shape bg-primary text-white text-lg rounded-circle',
+        },
+        {
+          title: 'Monthly Enrollment',
+          value: this.dashboardData.monthlyEnrollments,
+          icon: 'bi bi-people',
+          iconClass:
+            'icon icon-shape bg-primary text-white text-lg rounded-circle',
+        },
+        {
+          title: 'Todays Enrollment',
+          value: this.dashboardData.todaysEnrollments,
+          icon: 'bi bi-people',
+          iconClass:
+            'icon icon-shape bg-primary text-white text-lg rounded-circle',
+        },
       ];
     }
   }
