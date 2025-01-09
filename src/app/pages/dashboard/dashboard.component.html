@@ -1,1 +1,172 @@
-<p>dashboard works!</p>
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+  <!-- <nav
+      class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
+      id="navbarVertical"
+    >
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler ms-n2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#sidebarCollapse"
+          aria-controls="sidebarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="sidebarCollapse">
+          <ul class="navbar-nav">
+            @for(item of menuItems;track $index){
+            <li class="nav-item">
+              <a class="nav-link" [href]="item.routerLink">
+                <i [class]="item.icon"></i> {{ item.label }}
+              </a>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </nav> -->
+  <!-- header content -->
+  <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+    <header class="bg-surface-primary border-bottom pt-6">
+      <div class="container-fluid">
+        <div class="mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+              <h1 class="h2 mb-0 ls-tight">Institute Management</h1>
+            </div>
+            <div class="col-sm-6 col-12 text-sm-end">
+              <div class="mx-n1">
+                <a
+                  href="#"
+                  class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"
+                >
+                  <span class="pe-2">
+                    <i class="bi bi-pencil"></i>
+                  </span>
+                  <span>Edit</span>
+                </a>
+                <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                  <span class="pe-2">
+                    <i class="bi bi-plus"></i>
+                  </span>
+                  <span>Create</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main body content-->
+    <main class="py-6 bg-surface-secondary">
+      <div class="container-fluid">
+        <div class="row g-6 mb-6">
+          @for(card of cards; track $index){
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card shadow border-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <span
+                      class="h6 font-semibold text-muted text-sm d-block mb-2"
+                      >{{ card.title }}</span
+                    >
+                    <span class="h3 font-bold mb-0">{{ card.value }}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div [class]="card.iconClass">
+                      <i [class]="card.icon"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 mb-0 text-sm">
+                  <span
+                    class="badge badge-pill bg-soft-success text-success me-2"
+                  >
+                    <i class="bi bi-arrow-up me-1"></i>13%
+                  </span>
+                  <span class="text-nowrap text-xs text-muted"
+                    >Since last month</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        <div class="row g-6 mb-6">
+          <div class="col-xl-6 col-sm-6 col-12">
+            <div class="card shadow border-0 mb-7">
+              <div class="card-header">
+                <h5 class="mb-0">Recent Enrollments</h5>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Enroll Id</th>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Enrollment Date</th>
+                      <th scope="col">Batch Name</th>
+                      <th scope="col">Total Fees</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for(enrollment of recentEnrollment; track $index){
+                    <tr>
+                      <td>{{ enrollment.enrollId }}</td>
+                      <td>{{ enrollment.name }}</td>
+                      <td>
+                        {{ enrollment.enrollDate | date : "MMM d, y, h:mm a" }}
+                      </td>
+                      <td>{{ enrollment.batchId }}</td>
+                      <td>{{ enrollment.totalFees }}</td>
+                    </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-sm-6 col-12">
+            <div class="card shadow border-0 mb-7">
+              <div class="card-header">
+                <h5 class="mb-0">Recent Fee Received</h5>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Enroll Id</th>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Batch Name</th>
+                      <th scope="col">Enrollment Date</th>
+                      <th scope="col">Total Fees</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for(fee of recentFees?.feeDetails; track $index){
+                    <tr>
+                      <td>{{ fee.enrollId }}</td>
+                      <td>{{ fee.name }}</td>
+                      <td>{{ fee.batchId }}</td>
+                      <td>
+                        {{ fee.enrollDate | date : "MMM d, y, h:mm a" }}
+                      </td>
+                      <td>{{ fee.totalFees }}</td>
+                    </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
