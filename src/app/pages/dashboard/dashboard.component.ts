@@ -24,35 +24,6 @@ export class DashboardComponent {
   totalFeesReceived = 0;
   formatedAmount = '';
 
-  sidebarVisible: boolean = true;
-
-  /* menuItems = [
-    {
-      icon: 'bi-house',
-      iconClass: 'icon mr-2',
-      label: 'Dashboard',
-      routerLink: '/dashboard',
-    },
-    {
-      icon: 'bi-people',
-      iconClass: 'icon mr-2',
-      label: 'Student',
-      routerLink: '/dashboard',
-    },
-    {
-      icon: 'bi-book',
-      iconClass: 'icon mr-2',
-      label: 'Batch',
-      routerLink: '/dashboard',
-    },
-    {
-      icon: 'bi bi-person',
-      iconClass: 'icon mr-2',
-      label: 'Teacher',
-      routerLink: '/dashboard',
-    },
-  ]; */
-
   constructor() {
     this.getDashboardData();
     this.getRecentEnrollments();
@@ -137,9 +108,5 @@ export class DashboardComponent {
         },
       ];
     }
-  }
-
-  toggleSidebar() {
-    this.sidebarVisible = !this.sidebarVisible;
   }
 }
