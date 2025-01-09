@@ -6,10 +6,11 @@ import { DatePipe } from '@angular/common';
 import { IDashboarddata } from '../../Model/interface/dashboardData';
 import { IFeeDetailsResponse } from '../../Model/interface/fees';
 import { IGetEnrollments } from '../../Model/interface/enrollments';
+import { CardComponent } from '../../reusable/component/card/card.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DatePipe],
+  imports: [DatePipe, CardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

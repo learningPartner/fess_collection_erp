@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../Constant/Constant';
@@ -10,10 +10,11 @@ import { Student } from '../Model/interface/Student';
   providedIn: 'root',
 })
 export class StudentService {
+  http = inject(HttpClient);
   constructor(private generic: GenericService<Student>) {}
 
   getAllStudent(): Observable<Student[]> {
-    return this.generic.get(
+    return this.http.get<Student[]>(
       environment.API_URL + Constant.API_METHOD.STUDENT.GET_ALL_STUDENT
     );
   }

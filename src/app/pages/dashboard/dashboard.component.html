@@ -1,34 +1,4 @@
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-  <!-- <nav
-      class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
-      id="navbarVertical"
-    >
-      <div class="container-fluid">
-        <button
-          class="navbar-toggler ms-n2"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarCollapse"
-          aria-controls="sidebarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <div class="collapse navbar-collapse" id="sidebarCollapse">
-          <ul class="navbar-nav">
-            @for(item of menuItems;track $index){
-            <li class="nav-item">
-              <a class="nav-link" [href]="item.routerLink">
-                <i [class]="item.icon"></i> {{ item.label }}
-              </a>
-            </li>
-            }
-          </ul>
-        </div>
-      </div>
-    </nav> -->
   <!-- header content -->
   <div class="h-screen flex-grow-1 overflow-y-lg-auto">
     <header class="bg-surface-primary border-bottom pt-6">
@@ -67,7 +37,7 @@
         <div class="row g-6 mb-6">
           @for(card of cards; track $index){
           <div class="col-xl-3 col-sm-6 col-12">
-            <div class="card shadow border-0">
+            <!--             <div class="card shadow border-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
@@ -94,7 +64,13 @@
                   >
                 </div>
               </div>
-            </div>
+            </div> -->
+            <app-card
+              [title]="card.title"
+              [value]="card.value"
+              [iconClass]="card.iconClass"
+              [icon]="card.icon"
+            ></app-card>
           </div>
           }
         </div>

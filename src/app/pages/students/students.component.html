@@ -1,91 +1,167 @@
-<div class="header">
-    <h1>Student CRUD</h1>
-    <button id="addBtn" data-bs-toggle="modal" data-bs-target="#myModal">Add Student</button>
-  </div>
-
-  <div class="row">
-    <div class="col-3">
-        <div class="card-grid" id="cardGrid">
-            <!-- Example card -->
-            <div class="card-custom">
-              <h3>John Doe</h3>
-              <p>Email: john example.com</p>
-              <p>Phone: 1234567890</p>
-              <p>City: New York</p>
-              <button class="edit">Edit</button>
-              <button class="seperator">|</button>
-              <button class="delete">Delete</button>
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+  <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+    <header class="bg-surface-primary border-bottom pt-6">
+      <div class="container-fluid">
+        <div class="mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+              <h1 class="h2 mb-0 ls-tight">Students</h1>
+            </div>
+            <div class="col-sm-6 col-12 text-sm-end">
+              <div class="mx-n1">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="openModal()"
+                >
+                  Add Student
+                </button>
+              </div>
             </div>
           </div>
-    </div>
-  </div>
- 
+        </div>
+      </div>
+    </header>
 
-  <!-- Modal -->
-  <!-- Modal -->
-<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="studentModalLabel">Student Form</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="studentForm">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" id="name" placeholder="Name" required />
-                      </div>
+    <main class="py-6 bg-surface-secondary">
+      <div class="container-fluid">
+        <div class="row gap-3 mt-4">
+          @for(student of studentData; track $index){
+          <div class="col-sm-6 col-md-4 col-lg-3 col-12">
+            <div class="card-grid" id="cardGrid">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <div class="card-custom text-start ps-3 py-3">
+                      <h4 class="text-capitalize">{{ student.name }}</h4>
+                      <p>Email: {{ student.email }}</p>
+                      <p>Phone: {{ student.phone }}</p>
+                      <p>City: {{ student.city }}</p>
+                      <button class="edit">Edit</button>
+                      <button class="seperator">|</button>
+                      <button class="delete">Delete</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" id="email" placeholder="Email" required />
-                      </div>
-                </div>
+              </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-phone-alt"></i>
-                        <input type="text" class="form-control" id="phone" placeholder="Phone" required />
-                      </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" class="form-control" id="address" placeholder="Address" required />
-                      </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-city"></i>
-                        <input type="text" class="form-control" id="city" placeholder="City" required />
-                      </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <i class="fas fa-map-pin"></i>
-                        <input type="text" class="form-control" id="pinCode" placeholder="Pin Code" required />
-                      </div>
-                </div>
-            </div>
-           
-         
-            
-           
-            
-           
-          </form>
+            <!-- <app-card [title]="student.name" [value]="student.email"></app-card> -->
+          </div>
+          }
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" form="studentForm">Save</button>
-        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="studentModal" #studentModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Student Form</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="studentForm">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-phone-alt"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Phone"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  placeholder="Address"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-city"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  placeholder="City"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <i class="fas fa-map-pin"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pinCode"
+                  placeholder="Pin Code"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="closeModal()"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary" form="studentForm">
+          Save
+        </button>
       </div>
     </div>
   </div>
+</div>
