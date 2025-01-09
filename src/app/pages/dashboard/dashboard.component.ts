@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { IDashboarddata, IEnrollments } from '../../Model/dashboardData';
 import { EnrollmentService } from '../../services/enrollment.service';
 import { DashboardService } from '../../services/dashboard.service';
-import { IFeeDetailsResponse } from '../../Model/fees';
 import { PaymentService } from '../../services/payment.service';
 import { DatePipe } from '@angular/common';
+import { IDashboarddata } from '../../Model/interface/dashboardData';
+import { IFeeDetailsResponse } from '../../Model/interface/fees';
+import { IGetEnrollments } from '../../Model/interface/enrollments';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent {
   paymentService = inject(PaymentService);
 
   dashboardData: IDashboarddata['dashboardData'] | null = null;
-  recentEnrollment: IEnrollments[] = [];
+  recentEnrollment: IGetEnrollments[] = [];
   recentFees: IFeeDetailsResponse | null = null;
   cards: any[] = [];
   totalFeesReceived = 0;
@@ -42,7 +43,7 @@ export class DashboardComponent {
   getRecentEnrollments() {
     this.enrollmentService
       .loadEnrollments()
-      .subscribe((data: IEnrollments[]) => {
+      .subscribe((data: IGetEnrollments[]) => {
         if (data) {
           this.recentEnrollment = data;
         }

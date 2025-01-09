@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { IUserObj } from '../../Model/login';
+import { IUserObj } from '../../Model/interface/login';
 
 @Component({
   selector: 'app-layout',
@@ -18,27 +18,27 @@ export class LayoutComponent {
     {
       icon: 'bi-house me-2',
       label: 'Dashboard',
-      routerLink: '/dashboard',
+      routerLink: '/admin/dashboard',
     },
     {
       icon: 'bi-mortarboard-fill me-2',
       label: 'Students',
-      routerLink: '/student',
+      routerLink: '/admin/student',
     },
     {
       icon: 'bi-book me-2',
       label: 'Batch',
-      routerLink: '/dashboard',
+      routerLink: '/admin/dashboard',
     },
     {
       icon: 'bi bi-person me-2',
       label: 'Teacher',
-      routerLink: '/dashboard',
+      routerLink: '/admin/dashboard',
     },
     {
       icon: 'bi bi-gear me-2',
       label: 'Setting',
-      routerLink: '/dashboard',
+      routerLink: '/admin/dashboard',
     },
   ];
 

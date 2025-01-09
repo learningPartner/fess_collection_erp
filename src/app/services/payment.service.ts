@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IFeeDetail } from '../Model/fees';
 import { GenericService } from './generic.service';
 import { Constant } from '../Constant/Constant';
 import { HttpClient } from '@angular/common/http';
+import { IFeeDetail } from '../Model/interface/fees';
 
 @Injectable({
   providedIn: 'root',

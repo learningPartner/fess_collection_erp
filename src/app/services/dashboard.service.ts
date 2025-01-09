@@ -1,10 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { GenericService } from './generic.service';
-import { IDashboarddata } from '../Model/dashboardData';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
 import { Constant } from '../Constant/Constant';
 import { HttpClient } from '@angular/common/http';
+import { IDashboarddata } from '../Model/interface/dashboardData';
 
 @Injectable({
   providedIn: 'root',

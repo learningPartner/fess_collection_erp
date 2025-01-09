@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUserObj } from '../../Model/login';
 import { Constant } from '../../Constant/Constant';
+import { IUserObj } from '../../Model/interface/login';
 
 @Component({
   selector: 'app-login',

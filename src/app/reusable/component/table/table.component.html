@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Enroll Id</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Enrollment Date</th>
+        <th scope="col">Batch Name</th>
+        <th scope="col">Total Fees</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(enrollment of recentEnrollment; track $index){
+      <tr>
+        <td>{{ enrollment.enrollId }}</td>
+        <td>{{ enrollment.name }}</td>
+        <td>
+          {{ enrollment.enrollDate | date : "MMM d, y, h:mm a" }}
+        </td>
+        <td>{{ enrollment.batchId }}</td>
+        <td>{{ enrollment.totalFees }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
