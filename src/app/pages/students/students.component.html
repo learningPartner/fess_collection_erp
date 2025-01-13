@@ -33,11 +33,11 @@
                 <div class="row">
                   <div class="col">
                     <div class="card-custom text-start ps-3 py-3">
-                      <h4 class="text-capitalize">{{ student.name }}</h4>
+                      <h6 class="text-capitalize">{{ student.name }}</h6>
                       <p>Email: {{ student.email }}</p>
                       <p>Phone: {{ student.phone }}</p>
                       <p>City: {{ student.city }}</p>
-                      <button class="edit">Edit</button>
+                      <button class="edit" (click)="onEdit(student)">Edit</button>
                       <button class="seperator">|</button>
                       <button class="delete">Delete</button>
                     </div>

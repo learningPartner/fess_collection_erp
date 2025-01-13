@@ -40,6 +40,11 @@ export class StudentsComponent {
     });
   }
 
+  onEdit(data: Student) {
+    debugger;
+    this.studentService.initializeForm(data);
+  }
+
   openModal() {
     let modal = document.getElementById('studentModal');
     if (modal) {

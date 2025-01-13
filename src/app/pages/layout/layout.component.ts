@@ -28,7 +28,7 @@ export class LayoutComponent {
     {
       icon: 'bi-book me-2',
       label: 'Batch',
-      routerLink: '/admin/dashboard',
+      routerLink: '/admin/batch/0',
     },
     {
       icon: 'bi bi-person me-2',

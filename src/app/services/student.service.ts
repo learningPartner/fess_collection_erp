@@ -21,16 +21,16 @@ export class StudentService {
     this.initializeForm();
   }
 
-  initializeForm() {
+  initializeForm(data?: Student) {
     debugger;
     this.studentForm = new FormGroup({
-      studid: new FormControl(0),
-      name: new FormControl(""),
-      email: new FormControl(""),
-      phone: new FormControl(""),
-      address: new FormControl(""),
-      city: new FormControl(""),
-      pinCode: new FormControl("")
+      studid: new FormControl(data == undefined? 0: data.studid),
+      name: new FormControl(data == undefined? "": data.name),
+      email: new FormControl(data == undefined? "": data.email),
+      phone: new FormControl(data == undefined? "": data.phone),
+      address: new FormControl(data == undefined? "": data.address),
+      city: new FormControl(data == undefined? "": data.city),
+      pinCode: new FormControl(data == undefined? "": data.pinCode)
     })
   }
 
