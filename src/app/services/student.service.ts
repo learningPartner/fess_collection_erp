@@ -15,31 +15,29 @@ export class StudentService {
 
   studentForm: FormGroup = new FormGroup({});
 
-
   constructor(private generic: GenericService<Student>) {
-    debugger;
     this.initializeForm();
   }
 
   initializeForm() {
-    debugger;
     this.studentForm = new FormGroup({
       studid: new FormControl(0),
-      name: new FormControl(""),
-      email: new FormControl(""),
-      phone: new FormControl(""),
-      address: new FormControl(""),
-      city: new FormControl(""),
-      pinCode: new FormControl("")
-    })
+      name: new FormControl(''),
+      email: new FormControl(''),
+      phone: new FormControl(''),
+      address: new FormControl(''),
+      city: new FormControl(''),
+      pinCode: new FormControl(''),
+    });
   }
 
   createStudent() {
-    const formValue=  this.studentForm.value;
-    return this.http.post("https://projectapi.gerasim.in/api/InstituteManagement/CreateStudent",formValue);
-  
+    const formValue = this.studentForm.value;
+    return this.http.post(
+      environment.API_URL + Constant.API_METHOD.STUDENT.CREATE_STUDENT,
+      formValue
+    );
   }
-
 
   getAllStudent(): Observable<Student[]> {
     return this.http.get<Student[]>(
