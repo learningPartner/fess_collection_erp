@@ -1,5 +1,5 @@
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-  <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+  <div class="h-screen flex-grow-1">
     <header class="bg-surface-primary border-bottom pt-6">
       <div class="container-fluid">
         <div class="mb-3">
@@ -25,27 +25,32 @@
 
     <main class="py-6 bg-surface-secondary">
       <div class="container-fluid">
-        <div class="row gap-3 mt-4">
+        <div class="row g-3">
           @for(student of studentData; track $index){
-          <div class="col-sm-6 col-md-4 col-lg-3 col-12">
-            <div class="card-grid" id="cardGrid">
+          <div class="col-sm-6 col-md-6 col-lg-4 col-12">
+            <div class="card h-100 shadow">
               <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <div class="card-custom text-start ps-3 py-3">
-                      <h4 class="text-capitalize">{{ student.name }}</h4>
-                      <p>Email: {{ student.email }}</p>
-                      <p>Phone: {{ student.phone }}</p>
-                      <p>City: {{ student.city }}</p>
-                      <button class="edit">Edit</button>
-                      <button class="seperator">|</button>
-                      <button class="delete">Delete</button>
-                    </div>
-                  </div>
+                <h4 class="card-title text-capitalize">
+                  {{ student.name }}
+                </h4>
+                <p class="card-text mb-1">Email: {{ student.email }}</p>
+                <p class="card-text mb-1">Phone: {{ student.phone }}</p>
+                <p class="card-text mb-3">City: {{ student.city }}</p>
+                <div class="d-flex justify-content-end">
+                  <button
+                    class="btn btn-primary btn-sm me-2"
+                    (click)="openModal(student)"
+                  >
+                    Edit</button
+                  ><button
+                    class="btn btn-danger btn-sm"
+                    (click)="onDeleteCategory(student.studid)"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
-            <!-- <app-card [title]="student.name" [value]="student.email"></app-card> -->
           </div>
           }
         </div>
@@ -59,7 +64,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Student Form</h5>
+        <h5 class="modal-title">
+          {{ isEditMode ? "Edit Student" : "Add Student" }}
+        </h5>
         <button
           type="button"
           class="btn-close"
@@ -68,89 +75,41 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form id="studentForm" [formGroup]="from">
+        <form id="studentForm" [formGroup]="studForm">
           <div class="row">
+            @for(modalInput of modalFormInputs; track $index){
             <div class="col-6">
               <div class="form-group">
-                <i class="fas fa-user"></i>
+                <i [id]="modalInput.id" [class]="modalInput.icon"></i>
                 <input
-                  type="text"
-                  class="form-control" 
-                  formControlName="name"
-                  placeholder="Name"
-                  required
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <i class="fas fa-envelope"></i>
-                <input
-                  type="email"
+                  [type]="modalInput.type"
                   class="form-control"
-                  formControlName="email"
-                  id="email"
-                  placeholder="Email"
-                  required
+                  [formControlName]="modalInput.formControlName"
+                  [placeholder]="modalInput.placeholder"
+                  [id]="modalInput.id"
                 />
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <i class="fas fa-phone-alt"></i>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="phone"
-                  id="phone"
-                  placeholder="Phone"
-                  required
-                />
+              <div>
+                @if((studForm.controls[modalInput.formControlName].invalid) &&
+                (studForm.controls[modalInput.formControlName].touched ||
+                studForm.controls[modalInput.formControlName].dirty ||
+                isSubmittedForm) ) {
+                @if(studForm.controls[modalInput.formControlName].errors?.['required'])
+                {
+                <span class="text-danger mt-0">
+                  {{ modalInput.validation_msg }}
+                </span>
+                }
+                @if(studForm.controls[modalInput.formControlName].errors?.['minLength'])
+                {
+                <!-- why No output -->
+                <span class="text-danger mt-0">
+                  {{ modalInput.min_length_msg }}
+                </span>
+                } }
               </div>
             </div>
-            <div class="col-6">
-              <div class="form-group">
-                <i class="fas fa-map-marker-alt"></i>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="address"
-                  id="address"
-                  placeholder="Address"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <i class="fas fa-city"></i>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="city"
-                  id="city"
-                  placeholder="City"
-                  required
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <i class="fas fa-map-pin"></i>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="pinCode"
-                  id="pinCode"
-                  placeholder="Pin Code"
-                  required
-                />
-              </div>
-            </div>
+            }
           </div>
         </form>
       </div>
@@ -163,7 +122,7 @@
         >
           Close
         </button>
-        <button type="submit" class="btn btn-primary"  (click)="onSave()">
+        <button type="submit" class="btn btn-primary" (click)="onSave()">
           Save
         </button>
       </div>

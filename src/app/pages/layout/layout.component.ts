@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IUserObj } from '../../Model/interface/login';
+import { Constant } from '../../Constant/Constant';
 
 @Component({
   selector: 'app-layout',
@@ -14,33 +15,7 @@ export class LayoutComponent {
 
   router = inject(Router);
 
-  menuItems = [
-    {
-      icon: 'bi-house me-2',
-      label: 'Dashboard',
-      routerLink: '/admin/dashboard',
-    },
-    {
-      icon: 'bi-mortarboard-fill me-2',
-      label: 'Students',
-      routerLink: '/admin/student',
-    },
-    {
-      icon: 'bi-book me-2',
-      label: 'Batch',
-      routerLink: '/admin/dashboard',
-    },
-    {
-      icon: 'bi bi-person me-2',
-      label: 'Teacher',
-      routerLink: '/admin/dashboard',
-    },
-    {
-      icon: 'bi bi-gear me-2',
-      label: 'Setting',
-      routerLink: '/admin/dashboard',
-    },
-  ];
+  menuItems = Constant.menuItems;
 
   toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());

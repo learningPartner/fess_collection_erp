@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment.development';
 import { Constant } from '../Constant/Constant';
 import { GenericService } from './generic.service';
 import { Student } from '../Model/interface/Student';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -19,29 +19,56 @@ export class StudentService {
     this.initializeForm();
   }
 
-  initializeForm() {
+  initializeForm(data?: Student) {
     this.studentForm = new FormGroup({
-      studid: new FormControl(0),
-      name: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      address: new FormControl(''),
-      city: new FormControl(''),
-      pinCode: new FormControl(''),
+      studid: new FormControl(data?.studid ?? 0, [Validators.required]),
+      name: new FormControl(data?.name ?? '', [Validators.required]),
+      email: new FormControl(data?.email ?? '', [
+        Validators.required,
+        Validators.email,
+      ]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      address: new FormControl(data?.address ?? '', [Validators.required]),
+      city: new FormControl(data?.city ?? '', [Validators.required]),
+      pinCode: new FormControl(data?.pinCode ?? '', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 
-  createStudent() {
-    const formValue = this.studentForm.value;
+  createStudent(data: Student) {
     return this.http.post(
       environment.API_URL + Constant.API_METHOD.STUDENT.CREATE_STUDENT,
-      formValue
+      data
     );
   }
 
   getAllStudent(): Observable<Student[]> {
     return this.http.get<Student[]>(
       environment.API_URL + Constant.API_METHOD.STUDENT.GET_ALL_STUDENT
+    );
+  }
+
+  updateStudentDetail(studid: number, studData: any) {
+    return this.http.put(
+      environment.API_URL +
+        Constant.API_METHOD.STUDENT.UPDATE_STUDENT +
+        '?id=' +
+        studid,
+      studData
+    );
+  }
+
+  deleteStudent(studid: number) {
+    return this.http.delete(
+      environment.API_URL +
+        Constant.API_METHOD.STUDENT.DELETE_STUDENT +
+        '?id=' +
+        studid
     );
   }
 }

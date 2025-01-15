@@ -23,4 +23,86 @@ export const Constant = {
       GET_FEES: envirURL + 'GetFees',
     },
   },
+
+  menuItems: [
+    {
+      icon: 'bi-house me-2',
+      label: 'Dashboard',
+      routerLink: '/admin/dashboard',
+    },
+    {
+      icon: 'bi-mortarboard-fill me-2',
+      label: 'Students',
+      routerLink: '/admin/student',
+    },
+    {
+      icon: 'bi-book me-2',
+      label: 'Batch',
+      routerLink: '/admin/batch/0',
+    },
+    {
+      icon: 'bi bi-person me-2',
+      label: 'Teacher',
+      routerLink: '/admin/dashboard',
+    },
+    {
+      icon: 'bi bi-gear me-2',
+      label: 'Setting',
+      routerLink: '/admin/dashboard',
+    },
+  ],
+
+  modalForm: [
+    {
+      icon: 'bi-person',
+      type: 'text',
+      formControlName: 'name',
+      id: 'name',
+      placeholder: 'Name',
+      validation_msg: 'Name is required',
+    },
+    {
+      icon: 'bi-envelope',
+      type: 'email',
+      formControlName: 'email',
+      id: 'email',
+      placeholder: 'Email',
+      validation_msg: 'Email is required',
+    },
+    {
+      icon: 'bi-telephone-fill',
+      type: 'text',
+      formControlName: 'phone',
+      id: 'phone',
+      placeholder: 'Phone',
+      validation_msg: 'Phone is required',
+      min_length_msg: 'Minimum 10 digits is required',
+    },
+
+    {
+      icon: 'bi-geo-alt-fill',
+      type: 'text',
+      formControlName: 'address',
+      id: 'address',
+      placeholder: 'Address',
+      validation_msg: 'Address is required',
+    },
+    {
+      icon: 'bi-buildings-fill',
+      type: 'text',
+      formControlName: 'city',
+      id: 'city',
+      placeholder: 'City',
+      validation_msg: 'City is required',
+    },
+    {
+      icon: 'bi-geo-fill',
+      type: 'text',
+      formControlName: 'pinCode',
+      id: 'pinCode',
+      placeholder: 'Pincode',
+      validation_msg: 'Pincode is required',
+      min_length_msg: 'Minimum 6 digits is required',
+    },
+  ],
 };
