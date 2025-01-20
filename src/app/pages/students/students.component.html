@@ -25,26 +25,21 @@
 
     <main class="py-6 bg-surface-secondary">
       <div class="container-fluid">
+        @if(isDataLoading) {
+        <span class="sr-only me-6">Loading Student data...</span>
+        <div class="spinner-border" role="status"></div>
+        }
         <div class="row g-3">
           @for(student of studentData; track $index){
           <div class="col-sm-6 col-md-6 col-lg-4 col-12">
             <div class="card h-100 shadow">
               <div class="card-body">
-                <ng-container *ngIf="!isDataLoading; else loaderTemplate">
-                  <h4 class="card-title text-capitalize">
-                    {{ student.name }}
-                  </h4>
-                  <p class="card-text mb-1">Email: {{ student.email }}</p>
-                  <p class="card-text mb-1">Phone: {{ student.phone }}</p>
-                  <p class="card-text mb-3">City: {{ student.city }}</p>
-                </ng-container>
-
-                <!-- Define the loader template for when data is loading -->
-                <ng-template #loaderTemplate>
-                  <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </ng-template>
+                <h4 class="card-title text-capitalize">
+                  {{ student.name }}
+                </h4>
+                <p class="card-text mb-1">Email: {{ student.email }}</p>
+                <p class="card-text mb-1">Phone: {{ student.phone }}</p>
+                <p class="card-text mb-3">City: {{ student.city }}</p>
 
                 <div class="d-flex justify-content-end">
                   <button
@@ -138,12 +133,13 @@
           Close
         </button>
         <button type="submit" class="btn btn-primary" (click)="onSave()">
+          @if(isDataLoading){
           <span
             class="spinner-border spinner-border-sm"
             role="status"
             aria-hidden="true"
           ></span>
-          Loading...
+          Saving... }@else{Save}
         </button>
       </div>
     </div>
