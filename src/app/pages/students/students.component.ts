@@ -5,11 +5,11 @@ import { CardComponent } from '../../reusable/component/card/card.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Constant } from '../../Constant/Constant';
 import { CustomPipe } from '../../pipe/custom.pipe';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-students',
-  imports: [ReactiveFormsModule, CustomPipe, NgIf],
+  imports: [ReactiveFormsModule, CustomPipe, CommonModule],
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss',
 })
@@ -20,6 +20,7 @@ export class StudentsComponent {
   isEditMode: boolean = false;
   isSubmittedForm: boolean = false;
   isDataLoading = false;
+  modalFormInputs = Constant.modalForm;
 
   studForm: FormGroup = new FormGroup({});
 
@@ -28,17 +29,13 @@ export class StudentsComponent {
     this.studForm = this.studentService.studentForm;
   }
 
-  modalFormInputs = Constant.modalForm;
-
   loadStudentsData() {
     this.isDataLoading = true;
-    console.log('Loading data...');
     this.studentService.getAllStudent().subscribe((students: Student[]) => {
       if (students) {
         this.studentData = students;
       }
       this.isDataLoading = false;
-      console.log('Data loading complete');
     });
   }
 
@@ -77,20 +74,31 @@ export class StudentsComponent {
     const studid = formData.studid;
     this.isSubmittedForm = true;
 
+    this.isDataLoading = true;
+
     if (this.isEditMode && studid) {
       this.studentService
         .updateStudentDetail(studid, formData)
         .subscribe(() => {
           this.loadStudentsData();
           this.closeModal();
+          this.isDataLoading = false;
+          setTimeout(() => {
+            alert('Student data has been updated');
+          }, 500);
         });
     } else {
       /// why studid is null
+      this.isDataLoading = true;
       formData.studid = 0;
       this.studentService.createStudent(formData).subscribe(() => {
-        alert('student created');
         this.loadStudentsData();
         this.closeModal();
+        this.isDataLoading = false;
+        setTimeout(() => {
+          alert('Student created');
+        }, 500);
+        //
       });
     }
   }
