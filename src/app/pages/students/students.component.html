@@ -30,12 +30,22 @@
           <div class="col-sm-6 col-md-6 col-lg-4 col-12">
             <div class="card h-100 shadow">
               <div class="card-body">
-                <h4 class="card-title text-capitalize">
-                  {{ student.name }}
-                </h4>
-                <p class="card-text mb-1">Email: {{ student.email }}</p>
-                <p class="card-text mb-1">Phone: {{ student.phone }}</p>
-                <p class="card-text mb-3">City: {{ student.city }}</p>
+                <ng-container *ngIf="!isDataLoading; else loaderTemplate">
+                  <h4 class="card-title text-capitalize">
+                    {{ student.name }}
+                  </h4>
+                  <p class="card-text mb-1">Email: {{ student.email }}</p>
+                  <p class="card-text mb-1">Phone: {{ student.phone }}</p>
+                  <p class="card-text mb-3">City: {{ student.city }}</p>
+                </ng-container>
+
+                <!-- Define the loader template for when data is loading -->
+                <ng-template #loaderTemplate>
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </ng-template>
+
                 <div class="d-flex justify-content-end">
                   <button
                     class="btn btn-primary btn-sm me-2"
@@ -96,15 +106,20 @@
                 isSubmittedForm) ) {
                 @if(studForm.controls[modalInput.formControlName].errors?.['required'])
                 {
-                <span class="text-danger mt-0">
-                  {{ modalInput.validation_msg }}
+                <span class="text-danger">
+                  {{ "REQUIRED" | custom : modalInput.placeholder }}
                 </span>
                 }
-                @if(studForm.controls[modalInput.formControlName].errors?.['minLength'])
+                @if(studForm.controls[modalInput.formControlName].errors?.['minlength'])
                 {
-                <!-- why No output -->
-                <span class="text-danger mt-0">
-                  {{ modalInput.min_length_msg }}
+                <span class="text-danger">
+                  {{
+                    modalInput.formControlName === "phone"
+                      ? ("MOB_MIN_LENGTH" | custom)
+                      : modalInput.formControlName === "pinCode"
+                      ? ("MIN_ZIPCODE_LENGTH" | custom)
+                      : null
+                  }}
                 </span>
                 } }
               </div>
@@ -123,7 +138,12 @@
           Close
         </button>
         <button type="submit" class="btn btn-primary" (click)="onSave()">
-          Save
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          Loading...
         </button>
       </div>
     </div>

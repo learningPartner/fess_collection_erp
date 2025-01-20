@@ -3,10 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constant } from '../../Constant/Constant';
 import { IUserObj } from '../../Model/interface/login';
+import { CustomPipe } from '../../pipe/custom.pipe';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, CustomPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -30,9 +31,5 @@ export class LoginComponent {
     } else {
       alert('Wrong credential');
     }
-  }
-
-  get requiredMessage() {
-    return Constant.VALIDATION_MESSAGE.REQUIRED;
   }
 }

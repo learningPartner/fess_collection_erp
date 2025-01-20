@@ -1,13 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../Model/class/Student';
 import { CardComponent } from '../../reusable/component/card/card.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Constant } from '../../Constant/Constant';
+import { CustomPipe } from '../../pipe/custom.pipe';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-students',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CustomPipe, NgIf],
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss',
 })
@@ -17,6 +19,7 @@ export class StudentsComponent {
   studentData: Student[] = [];
   isEditMode: boolean = false;
   isSubmittedForm: boolean = false;
+  isDataLoading = false;
 
   studForm: FormGroup = new FormGroup({});
 
@@ -28,10 +31,14 @@ export class StudentsComponent {
   modalFormInputs = Constant.modalForm;
 
   loadStudentsData() {
+    this.isDataLoading = true;
+    console.log('Loading data...');
     this.studentService.getAllStudent().subscribe((students: Student[]) => {
       if (students) {
         this.studentData = students;
       }
+      this.isDataLoading = false;
+      console.log('Data loading complete');
     });
   }
 
