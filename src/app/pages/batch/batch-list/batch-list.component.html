@@ -1,6 +1,5 @@
-<div class="content">
+<!-- <div class="content">
     <div class="container">
-      <!-- Batch Form -->
       <h3 class="mb-4">New Batch</h3>
       <form id="batchForm">
         <div class="row">
@@ -34,7 +33,6 @@
         </div>
       </form>
     
-      <!-- Enrollment Section -->
       <div class="table-container">
         <h4>Enrolled Students</h4>
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#enrollStudentModal">
@@ -52,14 +50,12 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="enrollmentsTable">
-            <!-- Enrollment rows will go here -->
+          <tbody id="batchsTable">
           </tbody>
         </table>
       </div>
     </div>
     
-    <!-- Enroll Student Modal -->
     <div class="modal fade" id="enrollStudentModal" tabindex="-1" aria-labelledby="enrollStudentModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -105,4 +101,140 @@
       </div>
     </div>
     
+  </div> -->
+
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+  <div class="h-screen flex-grow-1">
+    <header class="bg-surface-primary border-bottom pt-6">
+      <div class="container-fluid">
+        <div class="mb-3">
+          <div class="row align-items-center">
+            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+              <h1 class="h2 mb-0 ls-tight">Batches</h1>
+            </div>
+            <div class="col-sm-6 col-12 text-sm-end">
+              <div class="mx-n1">
+                <input
+                  class="me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="openModal()"
+                >
+                  Add Batch
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main body content-->
+    <main class="py-6 bg-surface-secondary">
+      <div class="container-fluid">
+        <div class="row g-6 mb-6">
+          <div class="col-12">
+            <div class="card shadow border-0 mb-7">
+              <div class="table-responsive">
+                <table class="table table-hover table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Batch Name</th>
+                      <th scope="col">Batch Start Date</th>
+                      <th scope="col">Batch End Date</th>
+                      <th scope="col">Teacher</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for(batch of totalBatches; track $index){
+                    <tr>
+                      <td>{{ batch.batchName }}</td>
+
+                      <td>
+                        {{ batch.startDate | date : "MMM d, y, h:mm a" }}
+                      </td>
+
+                      <td>{{ batch.endDate | date : "MMM d, y, h:mm a" }}</td>
+                      <td>{{ batch.teacher }}</td>
+                    </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
+</div>
+
+<div class="modal" id="studentModal" #studentModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Batch</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="batchForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <i class="fas fa-layer-group"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="batchName"
+                  placeholder="Batch Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="teacher"
+                  placeholder="Teacher Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <i class="fas fa-calendar-alt"></i>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="startDate"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <i class="fas fa-calendar-check"></i>
+                <input type="date" class="form-control" id="endDate" required />
+              </div>
+            </div>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary">Save Batch</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

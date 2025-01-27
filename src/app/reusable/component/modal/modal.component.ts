@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Constant } from '../../../Constant/Constant';
+import { StudentService } from '../../../services/student.service';
 
 @Component({
   selector: 'app-modal',
@@ -9,18 +10,19 @@ import { Constant } from '../../../Constant/Constant';
   styleUrl: './modal.component.scss',
 })
 export class ModalComponent {
+  @Input() title: string = 'Modal Title';
   @Input() isEditMode: boolean = false;
+  @Input() isOpenModal: boolean = false;
   @Input() itemData: any = {};
   @Output() onSave = new EventEmitter<any>();
+
+  studentService = inject(StudentService);
 
   form: FormGroup;
   modalFormInputs = Constant.modalForm;
 
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      name: [''],
-      description: [''],
-    });
+    this.form = this.studentService.studentForm;
   }
 
   ngOnChanges() {}

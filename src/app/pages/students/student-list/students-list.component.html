@@ -9,6 +9,12 @@
             </div>
             <div class="col-sm-6 col-12 text-sm-end">
               <div class="mx-n1">
+                <input
+                  class="me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
                 <button
                   type="button"
                   class="btn btn-primary"
@@ -33,26 +39,31 @@
           @for(student of studentData; track $index){
           <div class="col-sm-6 col-md-6 col-lg-4 col-12">
             <div class="card h-100 shadow">
-              <div class="card-body">
-                <h4 class="card-title text-capitalize">
+              <div class="card-body d-flex flex-column">
+                <h4
+                  class="card-title text-capitalize"
+                  routerLink="/admin/student-detail"
+                  style="cursor: pointer"
+                >
                   {{ student.name }}
                 </h4>
                 <p class="card-text mb-1">Email: {{ student.email }}</p>
                 <p class="card-text mb-1">Phone: {{ student.phone }}</p>
                 <p class="card-text mb-3">City: {{ student.city }}</p>
 
-                <div class="d-flex justify-content-end">
-                  <button
-                    class="btn btn-primary btn-sm me-2"
-                    (click)="openModal(student)"
+                <div class="mt-auto d-flex justify-content-end">
+                  <div style="cursor: pointer" (click)="openModal(student)">
+                    <i class="bi bi-pencil text-success me-1"> </i
+                    ><span class="text-success">Edit</span>
+                  </div>
+                  <div
+                    class="ms-3"
+                    (click)="onDeleteStudent(student.studid)"
+                    style="cursor: pointer"
                   >
-                    Edit</button
-                  ><button
-                    class="btn btn-danger btn-sm"
-                    (click)="onDeleteCategory(student.studid)"
-                  >
-                    Delete
-                  </button>
+                    <i class="bi bi-trash text-danger me-1"> </i
+                    ><span class="text-danger">Delete</span>
+                  </div>
                 </div>
               </div>
             </div>

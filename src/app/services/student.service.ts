@@ -71,4 +71,11 @@ export class StudentService {
         studid
     );
   }
+
+  getAllStudentDetail(): Observable<Student[]> {
+    return this.http.get<Student[]>(
+      environment.API_URL +
+        Constant.API_METHOD.STUDENT.GetStudentBatchesWithFees
+    );
+  }
 }
