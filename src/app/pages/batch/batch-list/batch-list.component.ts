@@ -7,18 +7,26 @@ import {
   Validators,
 } from '@angular/forms';
 import { interval } from 'rxjs';
+import { Constant } from '../../../Constant/Constant';
+import { ConstPipe } from '../../../pipes/const.pipe';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,ConstPipe],
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
 })
 export class BatchListComponent {
   formBuilder = inject(FormBuilder);
 
+  requiredMessage: string = "This Is Required";
+
+  validationConstant : any;
+
+
   timer = interval(5000);
 
   constructor() {
+    this.validationConstant  = Constant.VALIDATION_MESSAGES;
     this.initializeForm();
     /*     this.timer.subscribe((res=>{
       alert("from interval")

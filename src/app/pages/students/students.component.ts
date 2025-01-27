@@ -14,6 +14,7 @@ import { Constant } from '../../Constant/Constant';
 export class StudentsComponent {
   studentService = inject(StudentService);
 
+  requiredMessage: string = "This Is Required";
   studentData: Student[] = [];
   isEditMode: boolean = false;
   isSubmittedForm: boolean = false;

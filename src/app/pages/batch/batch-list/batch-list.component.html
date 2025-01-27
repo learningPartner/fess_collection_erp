@@ -72,10 +72,16 @@
               <div class="form-group">
                 <i class="fas fa-id-card"></i>
                 <input type="number" class="form-control" id="studentId" placeholder="Student ID" required />
+                <div class="text-danger">
+                  <span>{{'required' | const}}</span>
+                </div>
               </div>
               <div class="form-group">
                 <i class="fas fa-dollar-sign"></i>
                 <input type="text" class="form-control" id="totalFees" placeholder="Total Fees" required />
+                <div class="text-danger">
+                  <span>{{'required' | const}}</span>
+                </div>
               </div>
               <div class="form-group">
                 <i class="fas fa-percent"></i>

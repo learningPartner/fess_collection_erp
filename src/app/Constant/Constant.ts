@@ -2,10 +2,18 @@ import { environment } from '../../environments/environment.development';
 
 const envirURL = environment.API_URL;
 
+export const VALIDATION_MESSAGE  = {
+  required: 'This is Required',
+  minLength: 'mIN 10 Cher Needed'
+}
+
+
 export const Constant = {
-  VALIDATION_MESSAGE: {
-    REQUIRED: { Email: 'Email is required', Password: 'Password is required' },
+  VALIDATION_MESSAGES: {
+    REQUIRED: 'This is Required',
+    MOB_MIN_LENGTH: 'mIN 10 Cher Needed'
   },
+
   REGULAR_EXPRESSION: {
     EMAIL: '',
     AADHAR_CARD: '',

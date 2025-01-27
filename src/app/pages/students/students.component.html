@@ -100,7 +100,8 @@
                   {{ modalInput.validation_msg }}
                 </span>
                 }
-                @if(studForm.controls[modalInput.formControlName].errors?.['minLength'])
+                -{{studForm.controls[modalInput.formControlName].errors|json}}
+                @if(studForm.controls[modalInput.formControlName].errors?.['minength'])
                 {
                 <!-- why No output -->
                 <span class="text-danger mt-0">
