@@ -21,7 +21,7 @@
   <ul class="nav flex-column p-2 mt-10">
     @for(item of menuItems;track $index){
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="item.routerLink">
+      <a class="nav-link" href="#" [routerLink]="item.routerLink">
         <i [class]="item.icon"></i> {{ item.label }}</a
       >
     </li>

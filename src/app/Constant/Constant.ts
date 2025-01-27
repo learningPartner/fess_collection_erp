@@ -46,8 +46,13 @@ export const Constant = {
     },
     {
       icon: 'bi-book me-2',
-      label: 'Batch',
+      label: 'New Batch',
       routerLink: '/admin/batch/0',
+    },
+    {
+      icon: 'bi-book me-2',
+      label: 'Batches',
+      routerLink: '/admin/batches',
     },
     {
       icon: 'bi bi-person me-2',

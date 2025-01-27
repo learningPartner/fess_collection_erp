@@ -26,7 +26,7 @@ export class BatchListComponent {
   timer = interval(5000);
 
   constructor() {
-    this.validationConstant  = Constant.VALIDATION_MESSAGES;
+    this.validationConstant  = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
     /*     this.timer.subscribe((res=>{
       alert("from interval")
