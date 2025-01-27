@@ -1,4 +1,5 @@
 import { environment } from '../../environments/environment.development';
+import { IDashboarddata } from '../Model/interface/dashboardData';
 
 const envirURL = environment.API_URL;
 
@@ -25,11 +26,15 @@ export const Constant = {
       CREATE_STUDENT: 'CreateStudent',
       UPDATE_STUDENT: 'UpdateStudent',
       DELETE_STUDENT: 'DeleteStudentById',
+      GetStudentBatchesWithFees: 'student/GetStudentBatchesWithFees',
     },
     ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments' },
     DASHBOARD_DATA: { GET_DASHBOARD_DATA: envirURL + 'GetDashboardData' },
     PAYMENTS: {
       GET_FEES: envirURL + 'GetFees',
+    },
+    BATCH: {
+      GET_BATCH: envirURL + 'GetBatches',
     },
   },
 
@@ -57,6 +62,21 @@ export const Constant = {
     {
       icon: 'bi bi-person me-2',
       label: 'Teacher',
+      routerLink: '/admin/dashboard',
+    },
+    {
+      icon: 'bi bi-person me-2',
+      label: 'Enrollment',
+      routerLink: '/admin/enrollments',
+    },
+    {
+      icon: 'bi bi-cash me-2',
+      label: 'Payment',
+      routerLink: '/admin/dashboard',
+    },
+    {
+      icon: 'bi bi-cash me-2',
+      label: 'Pending payments',
       routerLink: '/admin/dashboard',
     },
     {

@@ -9,25 +9,33 @@ import {
 import { interval } from 'rxjs';
 import { Constant } from '../../../Constant/Constant';
 import { ConstPipe } from '../../../pipes/const.pipe';
+import { BatchService } from '../../../services/batch.service';
+import { IBatch } from '../../../Model/interface/batch';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule,ConstPipe],
+  imports: [ReactiveFormsModule, ConstPipe, DatePipe],
+
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
 })
 export class BatchListComponent {
+  batchService = inject(BatchService);
+
+  totalBatches: IBatch[] = [];
+
   formBuilder = inject(FormBuilder);
 
-  requiredMessage: string = "This Is Required";
+  requiredMessage: string = 'This Is Required';
 
-  validationConstant : any;
-
+  validationConstant: any;
 
   timer = interval(5000);
 
   constructor() {
-    this.validationConstant  = Constant.VALIDATION_MESSAGE;
+    this.validationConstant = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
+    this.getAllBatches();
     /*     this.timer.subscribe((res=>{
       alert("from interval")
     })) */
@@ -81,5 +89,27 @@ export class BatchListComponent {
     });
 
     const form = this.batchForm.value;
+  }
+
+  getAllBatches() {
+    this.batchService.loadBatches().subscribe((data: IBatch[]) => {
+      if (data) {
+        this.totalBatches = data;
+      }
+    });
+  }
+
+  openModal() {
+    const modal = document.getElementById('studentModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeModal() {
+    const modal = document.getElementById('studentModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
   }
 }

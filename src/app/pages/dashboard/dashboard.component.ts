@@ -24,7 +24,8 @@ export class DashboardComponent {
   recentFees: IFeeDetailsResponse | null = null;
   cards: any[] = [];
   totalFeesReceived = 0;
-  formatedAmount = '';
+  todaysFeesReceived = 0;
+  totalFeesPending = 0;
 
   constructor() {
     this.getDashboardData();
@@ -34,7 +35,7 @@ export class DashboardComponent {
 
   getDashboardData() {
     this.dashboardService.loadDashboardData().subscribe((data: any) => {
-      if (data && data.result) {
+      if (data) {
         this.dashboardData = data.dashboardData;
         this.updateCards();
       }
@@ -46,34 +47,35 @@ export class DashboardComponent {
       .loadEnrollments()
       .subscribe((data: IGetEnrollments[]) => {
         if (data) {
-          this.recentEnrollment = data;
+          const last20daysAgo = new Date();
+          last20daysAgo.setDate(last20daysAgo.getDate() - 20);
+          this.recentEnrollment = data.filter((enrollment) => {
+            const enrollDate = new Date(enrollment.enrollDate);
+            return enrollDate >= last20daysAgo;
+          });
         }
       });
   }
 
   getRecentFees() {
     this.paymentService.loadFees().subscribe((data: any) => {
-      if (data && data.result) {
+      if (data) {
         this.recentFees = data;
-        this.totalFeesReceived = data.feeDetails.reduce(
-          (sum: number, feeDetail: any) => {
-            return sum + feeDetail.amount;
-          },
-          0
-        );
-        this.formatedAmount = this.formatAmount(this.totalFeesReceived);
         this.updateCards();
       }
     });
   }
 
   formatAmount(amount: number): string {
-    if (amount >= 1_000_000) {
-      return (amount / 1_000_000).toFixed(1) + 'M';
-    } else if (amount >= 1_000) {
-      return (amount / 1_000).toFixed(1) + 'K';
+    const sign = amount < 0 ? '-' : '';
+    const absAmount = Math.abs(amount);
+
+    if (absAmount >= 1_000_000) {
+      return sign + (absAmount / 1_000_000).toFixed(1) + 'M';
+    } else if (absAmount >= 1_000) {
+      return sign + (absAmount / 1_000).toFixed(1) + 'K';
     } else {
-      return amount.toString();
+      return sign + absAmount.toString();
     }
   }
 
@@ -95,18 +97,25 @@ export class DashboardComponent {
             'icon icon-shape bg-info text-white text-lg rounded-circle',
         },
         {
-          title: 'Total Enrollments',
-          value: this.dashboardData.totalEnrollments,
-          icon: 'bi bi-people',
-          iconClass:
-            'icon icon-shape bg-primary text-white text-lg rounded-circle',
-        },
-        {
-          title: 'Fees Received',
-          value: this.formatedAmount,
+          title: "Today's Fees Received",
+          value: this.formatAmount(this.dashboardData.todaysFeesReceived),
           icon: 'bi bi-cash',
           iconClass:
             'icon icon-shape bg-success text-white text-lg rounded-circle',
+        },
+        {
+          title: 'Total Fee Due',
+          value: this.formatAmount(this.dashboardData.totalFeesPending),
+          icon: 'bi bi-cash',
+          iconClass:
+            'icon icon-shape bg-danger text-white text-lg rounded-circle',
+        },
+        {
+          title: 'Todays Enrollment',
+          value: this.dashboardData.todaysEnrollments,
+          icon: 'bi bi-people',
+          iconClass:
+            'icon icon-shape bg-primary text-white text-lg rounded-circle',
         },
         {
           title: 'Weekly Enrollment',
@@ -123,8 +132,8 @@ export class DashboardComponent {
             'icon icon-shape bg-primary text-white text-lg rounded-circle',
         },
         {
-          title: 'Todays Enrollment',
-          value: this.dashboardData.todaysEnrollments,
+          title: 'Total Enrollments',
+          value: this.dashboardData.totalEnrollments,
           icon: 'bi bi-people',
           iconClass:
             'icon icon-shape bg-primary text-white text-lg rounded-circle',
