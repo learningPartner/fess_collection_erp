@@ -17,7 +17,7 @@
         <label for="username">Email</label>
         @if(username.invalid && username.touched){
         <div class="text-white">
-          {{ username.errors?.['required'] ? requiredMessage.Email : '' }}
+          {{ "REQUIRED" | custom : username.name }}
         </div>
         }
       </div>
@@ -34,10 +34,10 @@
           id="password"
           required
         />
-        <label for="password">Password</label>@if(password.invalid &&
-        password.touched){
+        <label for="password">Password</label>
+        @if(password.invalid && password.touched){
         <div class="text-white mt-1">
-          {{ username.errors?.['required'] ? requiredMessage.Password : '' }}
+          {{ "REQUIRED" | custom : password.name }}
         </div>
         }
       </div>

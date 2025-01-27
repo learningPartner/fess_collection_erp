@@ -27,7 +27,7 @@ export class StudentService {
         Validators.required,
         Validators.email,
       ]),
-      phone: new FormControl('', [
+      phone: new FormControl(data?.phone ?? '', [
         Validators.required,
         Validators.minLength(10),
       ]),

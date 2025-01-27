@@ -9,9 +9,10 @@ export const VALIDATION_MESSAGE  = {
 
 
 export const Constant = {
-  VALIDATION_MESSAGES: {
-    REQUIRED: 'This is Required',
-    MOB_MIN_LENGTH: 'mIN 10 Cher Needed'
+  VALIDATION_MESSAGE: {
+    REQUIRED: ' is required',
+    MOB_MIN_LENGTH: 'Min 10 character is required',
+    MIN_ZIPCODE_LENGTH: 'Min 6 character is required',
   },
 
   REGULAR_EXPRESSION: {
