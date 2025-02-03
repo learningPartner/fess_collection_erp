@@ -28,6 +28,9 @@ export const Constant = {
       DELETE_STUDENT: 'DeleteStudentById',
       GetStudentBatchesWithFees: 'student/GetStudentBatchesWithFees',
     },
+    BATCHES: {
+      CREATE_BATCHES: 'CreateBatch',
+    },
     ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments' },
     DASHBOARD_DATA: { GET_DASHBOARD_DATA: envirURL + 'GetDashboardData' },
     PAYMENTS: {

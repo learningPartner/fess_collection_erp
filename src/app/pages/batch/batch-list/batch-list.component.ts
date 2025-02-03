@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,18 +11,20 @@ import { Constant } from '../../../Constant/Constant';
 import { ConstPipe } from '../../../pipes/const.pipe';
 import { BatchService } from '../../../services/batch.service';
 import { IBatch } from '../../../Model/interface/batch';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule, ConstPipe, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, NgIf],
 
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
 })
-export class BatchListComponent {
+export class BatchListComponent implements OnInit {
   batchService = inject(BatchService);
 
   totalBatches: IBatch[] = [];
+  isLoading = false;
+  isLoadingData: boolean = true;
 
   formBuilder = inject(FormBuilder);
 
@@ -30,23 +32,14 @@ export class BatchListComponent {
 
   validationConstant: any;
 
-  timer = interval(5000);
+  ngOnInit(): void {
 
+    this.getAllBatches();
+
+  }
   constructor() {
     this.validationConstant = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
-    this.getAllBatches();
-    /*     this.timer.subscribe((res=>{
-      alert("from interval")
-    })) */
-    setTimeout(() => {
-      this.onEdit();
-    }, 8000);
-
-    /* setInterval(() => {
-      const date  = new Date();
-      alert(date.getTime())
-    }, 4000); */
   }
 
   batchForm: FormGroup = this.formBuilder.group({
@@ -58,43 +51,56 @@ export class BatchListComponent {
   });
 
   onEdit(data?: any) {
-    data = {
-      batchId: 1,
-      batchName: 'string',
-      startDate: '2025-01-13T15:26:35.228Z',
-      teacher: 'string',
-      endDate: '2025-01-13T15:26:35.228Z',
-    };
-    this.initializeForm(data);
+    // data = {
+    //   batchId: 1,
+    //   batchName: 'string',
+    //   startDate: '2025-01-13T15:26:35.228Z',
+    //   teacher: 'string',
+    //   endDate: '2025-01-13T15:26:35.228Z',
+    // };
+    // this.initializeForm(data);
   }
 
-  onSave() {
-    this.batchForm.reset();
-    this.batchForm = this.formBuilder.group({
-      batchId: ['', [Validators.required]],
-      batchName: new FormControl(''),
-      startDate: new FormControl(''),
-      teacher: new FormControl(''),
-      endDate: new FormControl(''),
+  saveBatch() {
+    if (this.batchForm.invalid) {
+      alert("Form is invalid. Please correct the errors.");
+      return;
+    }
+    this.isLoading = true;
+    const formValue = this.batchForm.value;
+    console.log("FormData", formValue);
+    this.batchService.createBatches(formValue).subscribe({
+      next: (res: any) => {
+        console.log("Batch saved successfully", res);
+        alert("Batch screated successfully");
+        this.closeModal();
+        this.batchForm.reset();
+        this.isLoading = false;
+        this.getAllBatches();
+      },
+      error: (error: any) => {
+        console.error("Error saving batch", error);
+        this.isLoading = false;
+      },
     });
   }
+
 
   initializeForm(data?: any) {
     this.batchForm = this.formBuilder.group({
-      batchId: new FormControl(data !== undefined ? data.batchId : 0),
-      batchName: new FormControl(data ? data.batchName : ''),
-      startDate: new FormControl(''),
-      teacher: new FormControl(''),
-      endDate: new FormControl(''),
-    });
-
-    const form = this.batchForm.value;
+      batchId: new FormControl(data?.data.batchId ?? 0, Validators.required),
+      batchName: new FormControl(data ? data.batchName : '', Validators.required),
+      startDate: new FormControl(data ? data.startDate : '', Validators.required),
+      teacher: new FormControl(data ? data.teacher : '', Validators.required),
+      endDate: new FormControl(data ? data.endDate : '', Validators.required)
+    })
   }
 
   getAllBatches() {
     this.batchService.loadBatches().subscribe((data: IBatch[]) => {
       if (data) {
         this.totalBatches = data;
+        this.isLoadingData = false;
       }
     });
   }
@@ -112,4 +118,6 @@ export class BatchListComponent {
       modal.style.display = 'none';
     }
   }
+
+
 }
