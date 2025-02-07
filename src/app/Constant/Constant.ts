@@ -30,6 +30,8 @@ export const Constant = {
     },
     BATCHES: {
       CREATE_BATCHES: 'CreateBatch',
+      UPDATE_BATCHES:'UpdateBatch',
+      DELETE_BATCHES:'DeleteBatchById'
     },
     ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments' },
     DASHBOARD_DATA: { GET_DASHBOARD_DATA: envirURL + 'GetDashboardData' },

@@ -25,4 +25,16 @@ export class BatchService {
   createBatches(batch:Batch): Observable<Batch[]> {
     return this.http.post<Batch[]>(environment.API_URL + Constant.API_METHOD.BATCHES.CREATE_BATCHES, batch);
   }
+
+  updateBatch(batchId: number, batchData: Batch): Observable<Batch[]> {
+    return this.http.put<Batch[]>(
+      `${environment.API_URL}${Constant.API_METHOD.BATCHES.UPDATE_BATCHES}?id=${batchId}`,
+      batchData
+    );
+  }
+  
+  deleteBatch(batchid: number) {
+    return this.http.delete(environment.API_URL + Constant.API_METHOD.BATCHES.DELETE_BATCHES +'?id='+batchid)
+  }
+  
 }
