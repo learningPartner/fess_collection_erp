@@ -13,18 +13,21 @@ export class EnrollmentsComponent {
   enrollmentService = inject(EnrollmentService);
 
   totalEnrollment: IGetEnrollments[] = [];
+  isLoadingData: boolean = false;
 
   constructor() {
     this.getRecentEnrollments();
   }
 
   getRecentEnrollments() {
+    this.isLoadingData = true;
     this.enrollmentService
       .loadEnrollments()
       .subscribe((data: IGetEnrollments[]) => {
         if (data) {
           this.totalEnrollment = data;
         }
+        this.isLoadingData = false;
       });
   }
 }

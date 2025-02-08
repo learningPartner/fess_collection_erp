@@ -5,15 +5,20 @@
         <div class="mb-3">
           <div class="row align-items-center">
             <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-              <h1 class="h2 mb-0 ls-tight">Enrollments</h1>
+              <h1 class="h2 mb-0 ls-tight">Students Enrollment List</h1>
             </div>
           </div>
         </div>
       </div>
     </header>
     <!-- Main body content-->
+
     <main class="py-6 bg-surface-secondary">
       <div class="container-fluid">
+        @if(isLoadingData){
+        <span class="sr-only me-6">Loading Student data...</span>
+        <div class="spinner-border" role="status"></div>
+        }
         <div class="row g-6 mb-6">
           <div class="col-12">
             <div class="card shadow border-0 mb-7">

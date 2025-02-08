@@ -8,17 +8,19 @@
               <h1 class="h2 mb-0 ls-tight">Students</h1>
             </div>
             <div class="col-sm-6 col-12 text-sm-end">
-              <div class="mx-n1">
+              <div class="mx-n1 align-items-center">
                 <input
-                  class="me-2"
+                  class="me-2 col-sm-6 mb-sm-0"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
+                  style="height: 38px; max-width: 200px"
                 />
                 <button
                   type="button"
                   class="btn btn-primary"
                   (click)="openModal()"
+                  style="height: 38px"
                 >
                   Add Student
                 </button>
@@ -42,7 +44,7 @@
               <div class="card-body d-flex flex-column">
                 <h4
                   class="card-title text-capitalize"
-                  routerLink="/admin/student-detail"
+                  [routerLink]="['/admin/student-detail', student.studid]"
                   style="cursor: pointer"
                 >
                   {{ student.name }}

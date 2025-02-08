@@ -8,13 +8,12 @@ import {
 } from '@angular/forms';
 import { interval } from 'rxjs';
 import { Constant } from '../../../Constant/Constant';
-import { ConstPipe } from '../../../pipes/const.pipe';
 import { BatchService } from '../../../services/batch.service';
 import { IBatch } from '../../../Model/interface/batch';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule, ConstPipe, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe],
 
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
@@ -26,8 +25,6 @@ export class BatchListComponent {
 
   formBuilder = inject(FormBuilder);
 
-  requiredMessage: string = 'This Is Required';
-
   validationConstant: any;
 
   timer = interval(5000);
@@ -36,17 +33,9 @@ export class BatchListComponent {
     this.validationConstant = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
     this.getAllBatches();
-    /*     this.timer.subscribe((res=>{
-      alert("from interval")
-    })) */
     setTimeout(() => {
       this.onEdit();
     }, 8000);
-
-    /* setInterval(() => {
-      const date  = new Date();
-      alert(date.getTime())
-    }, 4000); */
   }
 
   batchForm: FormGroup = this.formBuilder.group({

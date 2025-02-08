@@ -31,7 +31,7 @@ export const routes: Routes = [
         component: StudentsListComponent,
       },
       {
-        path: 'student-detail',
+        path: 'student-detail/:studentId',
         component: StudentDetailsComponent,
       },
       {
@@ -41,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'batches',
         component: BatchesComponent,
+      },
+      {
+        path: 'enrollments',
+        component: EnrollmentsComponent,
       },
     ],
   },

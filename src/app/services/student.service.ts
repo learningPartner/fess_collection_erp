@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../Constant/Constant';
 import { GenericService } from './generic.service';
-import { Student } from '../Model/interface/Student';
+import { IStudentWithBatch, Student } from '../Model/interface/Student';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
@@ -72,10 +72,12 @@ export class StudentService {
     );
   }
 
-  getAllStudentDetail(): Observable<Student[]> {
-    return this.http.get<Student[]>(
+  getStudentBatchesWithFees(studentId: any): Observable<IStudentWithBatch[]> {
+    return this.http.get<IStudentWithBatch[]>(
       environment.API_URL +
-        Constant.API_METHOD.STUDENT.GetStudentBatchesWithFees
+        Constant.API_METHOD.STUDENT.GetStudentBatchesWithFees +
+        '/' +
+        studentId
     );
   }
 }

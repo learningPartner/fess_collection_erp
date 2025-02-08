@@ -27,6 +27,8 @@ export class DashboardComponent {
   todaysFeesReceived = 0;
   totalFeesPending = 0;
 
+  isDataLoading = false;
+
   constructor() {
     this.getDashboardData();
     this.getRecentEnrollments();
@@ -34,15 +36,18 @@ export class DashboardComponent {
   }
 
   getDashboardData() {
+    this.isDataLoading = true;
     this.dashboardService.loadDashboardData().subscribe((data: any) => {
       if (data) {
         this.dashboardData = data.dashboardData;
         this.updateCards();
+        this.isDataLoading = false;
       }
     });
   }
 
   getRecentEnrollments() {
+    this.isDataLoading = true;
     this.enrollmentService
       .loadEnrollments()
       .subscribe((data: IGetEnrollments[]) => {
@@ -51,17 +56,21 @@ export class DashboardComponent {
           last20daysAgo.setDate(last20daysAgo.getDate() - 20);
           this.recentEnrollment = data.filter((enrollment) => {
             const enrollDate = new Date(enrollment.enrollDate);
+
             return enrollDate >= last20daysAgo;
           });
+          this.isDataLoading = false;
         }
       });
   }
 
   getRecentFees() {
+    this.isDataLoading = true;
     this.paymentService.loadFees().subscribe((data: any) => {
       if (data) {
         this.recentFees = data;
         this.updateCards();
+        this.isDataLoading = false;
       }
     });
   }

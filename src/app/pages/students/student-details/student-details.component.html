@@ -1,56 +1,67 @@
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
   <div class="h-screen flex-grow-1">
-    <header class="bg-surface-primary border-bottom pt-6">
-      <div class="container-fluid">
-        <div class="mb-3">
-          <div class="row align-items-center">
-            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-              <div class="col g-6 mb-6">
-                <h4 class="mb-0">Batch</h4>
-              </div>
-              <div class="col g-6 mb-6">
-                <h4 class="mb-0 ls-tight">Payment</h4>
-              </div>
-            </div>
+    <p-tabs [(value)]="activeTab">
+      <p-tablist>
+        @for (tab of tabs; track tab.value) {
+        <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+        }
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel [value]="'batch'">
+          <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Batch Id</th>
+                  <th scope="col">Batch Name</th>
+                  <th scope="col">Enrollment Date</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Total Fees</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(batch of studentData; track $index){
+                <tr>
+                  <td>{{ batch.batchId }}</td>
+                  <td>{{ batch.batchName }}</td>
+                  <td>{{ batch.enrollDate | date : "MMM d, y, h:mm a" }}</td>
+                  <td>{{ batch.startDate | date : "MMM d, y, h:mm a" }}</td>
+                  <td>{{ batch.totalFees | currency }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
-    </header>
-    <!-- Main body content-->
-    <main class="py-6 bg-surface-secondary">
-      <div class="container-fluid">
-        <div class="row g-6 mb-6">
-          <div class="col-12">
-            <div class="card shadow border-0 mb-7">
-              <div class="card-header">
-                <h5 class="mb-0">Recent Enrollments</h5>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-hover table-nowrap">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Enroll Id</th>
-                      <th scope="col">Student Name</th>
-                      <th scope="col">Enrollment Date</th>
-                      <th scope="col">Batch Name</th>
-                      <th scope="col">Total Fees</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        </p-tabpanel>
+        <p-tabpanel [value]="'payment'">
+          <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Payment Date</th>
+                  <th scope="col">Payment Mode</th>
+                  <th scope="col">Remarks</th>
+                  <th scope="col">Transaction Reference</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(feeDetails of studentFeeDetails; track $index){
+                <tr>
+                  <td>{{ feeDetails.amount }}</td>
+                  <td>
+                    {{ feeDetails.paymentDate | date : "MMM d, y, h:mm a" }}
+                  </td>
+                  <td>{{ feeDetails.paymentMode }}</td>
+                  <td>{{ feeDetails.remarks }}</td>
+                  <td>{{ feeDetails.transactionReference }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
-    </main>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
   </div>
 </div>
