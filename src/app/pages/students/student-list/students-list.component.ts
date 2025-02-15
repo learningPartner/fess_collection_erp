@@ -1,20 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
-import { StudentService } from '../../services/student.service';
-import { Student } from '../../Model/class/Student';
-import { CardComponent } from '../../reusable/component/card/card.component';
+import { StudentService } from '../../../services/student.service';
+import { Student } from '../../../Model/class/Student';
+import { CardComponent } from '../../../reusable/component/card/card.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Constant } from '../../Constant/Constant';
-import { CustomPipe } from '../../pipe/custom.pipe';
-import { CommonModule, NgIf } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
+import { Constant } from '../../../Constant/Constant';
+import { CustomPipe } from '../../../pipe/custom.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-students',
-  imports: [SharedModule, CustomPipe],
-  templateUrl: './students.component.html',
-  styleUrl: './students.component.scss',
+  imports: [ReactiveFormsModule, CustomPipe, RouterLink],
+  templateUrl: './students-list.component.html',
+  styleUrl: './students-list..component.scss',
 })
-export class StudentsComponent {
+export class StudentsListComponent {
   studentService = inject(StudentService);
 
   requiredMessage: string = "This Is Required";
@@ -105,7 +104,7 @@ export class StudentsComponent {
     }
   }
 
-  onDeleteCategory(studid: number) {
+  onDeleteStudent(studid: number) {
     this.studentService.deleteStudent(studid).subscribe((response) => {
       this.loadStudentsData();
     });
