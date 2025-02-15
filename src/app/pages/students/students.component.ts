@@ -6,10 +6,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Constant } from '../../Constant/Constant';
 import { CustomPipe } from '../../pipe/custom.pipe';
 import { CommonModule, NgIf } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-students',
-  imports: [ReactiveFormsModule, CustomPipe, CommonModule],
+  imports: [SharedModule, CustomPipe],
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss',
 })

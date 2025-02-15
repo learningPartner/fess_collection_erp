@@ -9,9 +9,10 @@ import {
 import { interval } from 'rxjs';
 import { Constant } from '../../../Constant/Constant';
 import { ConstPipe } from '../../../pipes/const.pipe';
+import { SharedModule } from '../../../shared/shared.module';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule,ConstPipe],
+  imports: [SharedModule,ConstPipe],
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
 })
