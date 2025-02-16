@@ -72,7 +72,7 @@ export const Constant = {
     {
       icon: 'bi bi-person me-2',
       label: 'Enrollment',
-      routerLink: '/admin/enrollments',
+      routerLink: '/admin/enrollments/0',
     },
     {
       icon: 'bi bi-cash me-2',

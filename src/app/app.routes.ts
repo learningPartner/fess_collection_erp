@@ -42,6 +42,10 @@ export const routes: Routes = [
         path: 'batches',
         component: BatchesComponent,
       },
+      {
+        path: 'enrollments/:batchid',
+        component: EnrollmentsComponent,
+      },
     ],
   },
 
