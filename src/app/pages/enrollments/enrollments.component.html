@@ -1,80 +1,134 @@
 <div class="container py-5">
   <!-- Batch Form -->
-  <div class="batch-card p-4 mb-5">
+   <div class="batch-card p-4 mb-5">
       <h2 class="mb-4 d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
           </svg>
-          New Batch
+          {{ isEditMode ? 'Update batch' : 'New Batch' }}
       </h2>
-      <form id="batchForm">
+
+      <div *ngIf="isFetching" class="text-center my-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Fetching batch details...</p>
+      </div>
+       <form id="batchForm" [formGroup]="batchForm" >
           <div class="row g-3">
               <div class="col-md-6">
+
                   <label class="form-label">Batch Name</label>
-                  <input type="text" class="form-control" required>
+                  <input type="text" class="form-control" id="batchName" placeholder="Batch Name"
+                  formControlName="batchName" required />
+                <small class="text-danger"
+                  *ngIf="batchForm.get('batchName')?.invalid && batchForm.get('batchName')?.touched">
+                  Batch Name is required.
+                </small>
               </div>
+
               <div class="col-md-6">
                   <label class="form-label">Teacher</label>
-                  <input type="text" class="form-control" required>
+                   <input type="text" class="form-control" id="teacher" placeholder="Teacher Name" formControlName="teacher"
+                  required />
+                <small class="text-danger" *ngIf="batchForm.get('teacher')?.invalid && batchForm.get('teacher')?.touched">
+                  Teacher Name is required.
+                </small>
               </div>
               <div class="col-md-6">
                   <label class="form-label">Start Date</label>
-                  <input type="date" class="form-control" required>
+                  
+                  <input type="date" class="form-control" id="startDate" formControlName="startDate" required />
+                <small class="text-danger"
+                  *ngIf="batchForm.get('startDate')?.invalid && batchForm.get('startDate')?.touched">
+                  Start Date is required.
+                </small>
               </div>
               <div class="col-md-6">
                   <label class="form-label">End Date</label>
-                  <input type="date" class="form-control" required>
+                  <input type="date" class="form-control" id="endDate" formControlName="endDate" required />
+                  <small class="text-danger" *ngIf="batchForm.get('endDate')?.invalid && batchForm.get('endDate')?.touched">
+                    End Date is required.
+                  </small>
               </div>
               <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Create Batch</button>
+                <button *ngIf="!isEditMode" type="button" class="btn btn-primary" (click)="saveBatch()"
+                [disabled]="batchForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                  aria-hidden="true"></span>
+                {{ isLoading ? 'Saving...' : 'Create Batch' }}
+              </button>
+              <button *ngIf="isEditMode" type="button" class="btn btn-primary" (click)="updateBatch()">
+                <span *ngIf="isUpdating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ isUpdating ? 'Updating...' : 'Update Batch' }}
+              </button>
               </div>
           </div>
-      </form>
+      </form> 
+  </div> 
+ 
+  <div class="AddEnrollment d-flex justify-content-end">
+    <button type="button" class="btn btn-primary" (click)="toggleEnrollmentForm()">
+      <i class="fa" [ngClass]="showEnrollmentForm ? 'fa-minus' : 'fa-user-plus'"></i>
+      {{ showEnrollmentForm ? ' Remove Enrollment' : ' Add Enrollment' }}
+    </button>
   </div>
+  
 
-  <!-- Enrollment Form -->
-  <div class="enrollment-form p-4 mb-5">
-      <h3 class="mb-4 d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          New Enrollment
-      </h3>
-      <form id="enrollmentForm">
-          <div class="row g-3">
-              <div class="col-md-6">
-                  <label class="form-label">Student ID</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Total Fees</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Discount</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Enrollment Date</label>
-                  <input type="date" class="form-control" required>
-              </div>
-              <div class="col-12">
-                  <label class="form-label">Narration</label>
-                  <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Submit Enrollment</button>
-              </div>
+
+  <!-- Enrollment Form (Initially Hidden) -->
+  <div *ngIf="showEnrollmentForm" class="enrollment-form p-4 mt-5">
+    <h3 class="mb-4 d-flex align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      New Enrollment
+    </h3>
+    <form id="enrollmentForm" [formGroup]="enrollmentForm">
+      <div class="row g-3">
+        <div class="col-md-6">
+            <label for="studentDropdown" class="form-label">Select a Student:</label>
+            <select id="studentDropdown" formControlName="studid"  name="student" class="form-control" required>
+              <option value="" disabled selected>Select Student</option>
+              <option *ngFor="let student of students" [value]="student.studid">
+                {{ student.name }}
+              </option>
+            </select>
           </div>
-      </form>
+          
+        <div class="col-md-6">
+          <label class="form-label">Total Fees</label>
+          <input type="number" class="form-control" required formControlName="totalFees">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Discount</label>
+          <input type="number" class="form-control" required formControlName="discount">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Enrollment Date</label>
+          <input type="date" class="form-control" required formControlName="enrollDate">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Narration</label>
+          <textarea class="form-control" rows="3" formControlName="narration" required></textarea>
+        </div>
+        <div class="col-12">
+            <button type="button" class="btn btn-primary" [disabled]="enrollmentForm.invalid" (click)="createEnrollment()">
+              Submit Enrollment
+            </button>
+          </div>
+      </div>
+    </form>
   </div>
+  
+  
 
   <!-- Enrollments Table -->
-  <div class="enrollments-table p-4">
+   <div class="enrollments-table p-4">
       <h3 class="mb-4 d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -108,5 +162,5 @@
               </tbody>
           </table>
       </div>
-  </div>
+  </div> 
 </div>

@@ -1,4 +1,5 @@
 import { environment } from '../../environments/environment.development';
+import { CreateEnrollment } from '../Model/class/enrollments';
 import { IDashboarddata } from '../Model/interface/dashboardData';
 
 const envirURL = environment.API_URL;
@@ -31,9 +32,12 @@ export const Constant = {
     BATCHES: {
       CREATE_BATCHES: 'CreateBatch',
       UPDATE_BATCHES:'UpdateBatch',
-      DELETE_BATCHES:'DeleteBatchById'
+      DELETE_BATCHES:'DeleteBatchById',
+      GETBATCHBYID:'getBatchById'
     },
-    ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments' },
+    ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments',
+                 CREATE_ENROLLMENT:envirURL + 'CreateEnrollment'
+     },
     DASHBOARD_DATA: { GET_DASHBOARD_DATA: envirURL + 'GetDashboardData' },
     PAYMENTS: {
       GET_FEES: envirURL + 'GetFees',
