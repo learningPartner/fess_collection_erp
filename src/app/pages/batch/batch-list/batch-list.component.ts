@@ -8,13 +8,12 @@ import {
 } from '@angular/forms';
 import { interval } from 'rxjs';
 import { Constant } from '../../../Constant/Constant';
-import { ConstPipe } from '../../../pipes/const.pipe';
 import { BatchService } from '../../../services/batch.service';
 import { IBatch } from '../../../Model/interface/batch';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule, ConstPipe, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe],
 
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',

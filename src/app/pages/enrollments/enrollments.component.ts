@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { EnrollmentService } from '../../services/enrollment.service';
 import { IGetEnrollments } from '../../Model/interface/enrollments';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-enrollments',
-  imports: [DatePipe],
+  imports: [],
   templateUrl: './enrollments.component.html',
   styleUrl: './enrollments.component.scss',
 })

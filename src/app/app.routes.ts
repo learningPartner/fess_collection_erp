@@ -4,7 +4,6 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StudentsListComponent } from './pages/students/student-list/students-list.component';
 import { BatchListComponent } from './pages/batch/batch-list/batch-list.component';
-import { BatchesComponent } from './pages/batch/batches/batches.component';
 import { StudentDetailsComponent } from './pages/students/student-details/student-details.component';
 import { EnrollmentsComponent } from './pages/enrollments/enrollments.component';
 
@@ -37,10 +36,6 @@ export const routes: Routes = [
       {
         path: 'batch/:batchid',
         component: BatchListComponent,
-      },
-      {
-        path: 'batches',
-        component: BatchesComponent,
       },
       {
         path: 'enrollments/:batchid',

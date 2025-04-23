@@ -3,11 +3,10 @@ import { IDashboarddata } from '../Model/interface/dashboardData';
 
 const envirURL = environment.API_URL;
 
-export const VALIDATION_MESSAGE  = {
+export const VALIDATION_MESSAGE = {
   required: 'This is Required',
-  minLength: 'mIN 10 Cher Needed'
-}
-
+  minLength: 'mIN 10 Cher Needed',
+};
 
 export const Constant = {
   VALIDATION_MESSAGE: {
@@ -51,18 +50,8 @@ export const Constant = {
     },
     {
       icon: 'bi-book me-2',
-      label: 'New Batch',
-      routerLink: '/admin/batch/0',
-    },
-    {
-      icon: 'bi-book me-2',
       label: 'Batches',
-      routerLink: '/admin/batches',
-    },
-    {
-      icon: 'bi bi-person me-2',
-      label: 'Teacher',
-      routerLink: '/admin/dashboard',
+      routerLink: '/admin/batch/0',
     },
     {
       icon: 'bi bi-person me-2',
@@ -77,11 +66,6 @@ export const Constant = {
     {
       icon: 'bi bi-cash me-2',
       label: 'Pending payments',
-      routerLink: '/admin/dashboard',
-    },
-    {
-      icon: 'bi bi-gear me-2',
-      label: 'Setting',
       routerLink: '/admin/dashboard',
     },
   ],

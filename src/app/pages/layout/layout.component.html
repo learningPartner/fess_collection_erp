@@ -5,19 +5,6 @@
   [class]="isSidebarCollapsed() ? 'sidebar' : 'sidebar collapsed'"
   id="sidebar"
 >
-  <!-- Navigation Links -->
-  <!--     <ul class="nav flex-column p-2">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="student">Students</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Settings</a>
-      </li>
-    </ul> -->
-
   <ul class="nav flex-column p-2 mt-10">
     @for(item of menuItems;track $index){
     <li class="nav-item">
@@ -30,7 +17,7 @@
 
   <!-- Footer Section -->
   <div class="sidebar-footer">
-    <p class="mb-2">Hello, <span id="username">John Doe</span></p>
+    <p class="mb-2">Hello, <span id="username">Admin</span></p>
     <button
       class="btn btn-danger btn-sm"
       id="logOffButton"
