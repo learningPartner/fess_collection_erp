@@ -1,108 +1,3 @@
-<!-- <div class="content">
-    <div class="container">
-      <h3 class="mb-4">New Batch</h3>
-      <form id="batchForm">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <i class="fas fa-layer-group"></i>
-              <input type="text" class="form-control" id="batchName" placeholder="Batch Name" required />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <i class="fas fa-chalkboard-teacher"></i>
-              <input type="text" class="form-control" id="teacher" placeholder="Teacher Name" required />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <i class="fas fa-calendar-alt"></i>
-              <input type="date" class="form-control" id="startDate" required />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <i class="fas fa-calendar-check"></i>
-              <input type="date" class="form-control" id="endDate" required />
-            </div>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Save Batch</button>
-          </div>
-        </div>
-      </form>
-    
-      <div class="table-container">
-        <h4>Enrolled Students</h4>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#enrollStudentModal">
-          <i class="fas fa-user-plus"></i> Enroll Student
-        </button>
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Student ID</th>
-              <th>Total Fees</th>
-              <th>Discount</th>
-              <th>Narration</th>
-              <th>Enroll Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="batchsTable">
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-    <div class="modal fade" id="enrollStudentModal" tabindex="-1" aria-labelledby="enrollStudentModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="enrollStudentModalLabel">Enroll Student</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="enrollForm">
-              <div class="form-group">
-                <i class="fas fa-id-card"></i>
-                <input type="number" class="form-control" id="studentId" placeholder="Student ID" required />
-                <div class="text-danger">
-                  <span>{{'required' | const}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <i class="fas fa-dollar-sign"></i>
-                <input type="text" class="form-control" id="totalFees" placeholder="Total Fees" required />
-                <div class="text-danger">
-                  <span>{{'required' | const}}</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <i class="fas fa-percent"></i>
-                <input type="number" class="form-control" id="discount" placeholder="Discount (%)" required />
-              </div>
-              <div class="form-group">
-                <i class="fas fa-pencil-alt"></i>
-                <input type="text" class="form-control" id="narration" placeholder="Narration" />
-              </div>
-              <div class="form-group">
-                <i class="fas fa-calendar-alt"></i>
-                <input type="date" class="form-control" id="enrollDate" required />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="enrollForm">Enroll</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </div> -->
-
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
   <div class="h-screen flex-grow-1">
     <header class="bg-surface-primary border-bottom pt-6">
@@ -140,30 +35,10 @@
           <div class="col-12">
             <div class="card shadow border-0 mb-7">
               <div class="table-responsive">
-                <table class="table table-hover table-nowrap">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Batch Name</th>
-                      <th scope="col">Batch Start Date</th>
-                      <th scope="col">Batch End Date</th>
-                      <th scope="col">Teacher</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for(batch of totalBatches; track $index){
-                    <tr>
-                      <td>{{ batch.batchName }}</td>
-
-                      <td>
-                        {{ batch.startDate | date : "MMM d, y, h:mm a" }}
-                      </td>
-
-                      <td>{{ batch.endDate | date : "MMM d, y, h:mm a" }}</td>
-                      <td>{{ batch.teacher }}</td>
-                    </tr>
-                    }
-                  </tbody>
-                </table>
+                <app-table
+                  [columnArray]="columnData"
+                  [gridData]="totalBatches"
+                ></app-table>
               </div>
             </div>
           </div>

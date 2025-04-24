@@ -10,10 +10,11 @@ import { interval } from 'rxjs';
 import { Constant } from '../../../Constant/Constant';
 import { BatchService } from '../../../services/batch.service';
 import { IBatch } from '../../../Model/interface/batch';
-import { DatePipe } from '@angular/common';
+import { TableComponent } from '../../../reusable/component/table/table.component';
+import { ITableData } from '../../../Model/interface/tableData';
 @Component({
   selector: 'app-batch-list',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, TableComponent],
 
   templateUrl: './batch-list.component.html',
   styleUrl: './batch-list.component.scss',
@@ -31,21 +32,34 @@ export class BatchListComponent {
 
   timer = interval(5000);
 
+  columnData: ITableData[] = [
+    {
+      fieldname: 'batchName',
+      headername: 'Batch Name',
+    },
+    {
+      fieldname: 'startDate',
+      headername: 'Batch Start Date',
+      isDate: true,
+    },
+    {
+      fieldname: 'endDate',
+      headername: 'Batch End Date',
+      isDate: true,
+    },
+    {
+      fieldname: 'teacher',
+      headername: 'Teacher',
+    },
+  ];
+
   constructor() {
     this.validationConstant = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
     this.getAllBatches();
-    /*     this.timer.subscribe((res=>{
-      alert("from interval")
-    })) */
     setTimeout(() => {
       this.onEdit();
     }, 8000);
-
-    /* setInterval(() => {
-      const date  = new Date();
-      alert(date.getTime())
-    }, 4000); */
   }
 
   batchForm: FormGroup = this.formBuilder.group({

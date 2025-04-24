@@ -2,23 +2,35 @@
   <table class="table table-hover table-nowrap">
     <thead class="thead-light">
       <tr>
-        <th scope="col">Enroll Id</th>
-        <th scope="col">Student Name</th>
-        <th scope="col">Enrollment Date</th>
-        <th scope="col">Batch Name</th>
-        <th scope="col">Total Fees</th>
+        @for(column of columnArray; track $index){
+        <th scope="col">{{ column.headername }}</th>
+        }
       </tr>
     </thead>
     <tbody>
-      @for(enrollment of recentEnrollment; track $index){
+      @for(item of gridData; track $index){
       <tr>
-        <td>{{ enrollment.enrollId }}</td>
-        <td>{{ enrollment.name }}</td>
+        @for(column of columnArray; track $index){
         <td>
-          {{ enrollment.enrollDate | date : "MMM d, y, h:mm a" }}
+          <!-- @if(column.isDate && item[column.fieldname]){
+          {{ item[column.fieldname] | date : "MMM d, y, h:mm a" }}
+          } @else {
+          {{ item[column.fieldname] }}
+          } -->
+
+          <!--  {{
+            item[column.fieldname]
+              ? (item[column.fieldname] | date : "MMM d, y, h:mm a")
+              : item[column.fieldname]
+          }} -->
+
+          {{
+            column.isDate
+              ? (item[column.fieldname] | date : "MMM d, y, h:mm a")
+              : item[column.fieldname]
+          }}
         </td>
-        <td>{{ enrollment.batchId }}</td>
-        <td>{{ enrollment.totalFees }}</td>
+        }
       </tr>
       }
     </tbody>
