@@ -1,12 +1,15 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITableData } from '../../../Model/interface/tableData';
+
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  columnArray: ITableData[] = input([]);
+  @Input() columnArray: ITableData[] = [];
+  @Input() gridData: any[] = [];
 }
