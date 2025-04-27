@@ -1,7 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import { Student } from '../../../Model/class/Student';
-import { CardComponent } from '../../../reusable/component/card/card.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Constant } from '../../../Constant/Constant';
 import { CustomPipe } from '../../../pipe/custom.pipe';
@@ -16,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class StudentsListComponent {
   studentService = inject(StudentService);
 
-  requiredMessage: string = "This Is Required";
+  requiredMessage: string = 'This Is Required';
   studentData: Student[] = [];
   isEditMode: boolean = false;
   isSubmittedForm: boolean = false;

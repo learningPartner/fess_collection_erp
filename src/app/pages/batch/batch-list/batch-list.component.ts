@@ -1,13 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { interval } from 'rxjs';
-import { Constant } from '../../../Constant/Constant';
 import { BatchService } from '../../../services/batch.service';
 import { IBatch } from '../../../Model/interface/batch';
 import { TableComponent } from '../../../reusable/component/table/table.component';
@@ -23,14 +20,6 @@ export class BatchListComponent {
   batchService = inject(BatchService);
 
   totalBatches: IBatch[] = [];
-
-  formBuilder = inject(FormBuilder);
-
-  requiredMessage: string = 'This Is Required';
-
-  validationConstant: any;
-
-  timer = interval(5000);
 
   columnData: ITableData[] = [
     {
@@ -54,54 +43,35 @@ export class BatchListComponent {
   ];
 
   constructor() {
-    this.validationConstant = Constant.VALIDATION_MESSAGE;
     this.initializeForm();
     this.getAllBatches();
-    setTimeout(() => {
-      this.onEdit();
-    }, 8000);
   }
 
-  batchForm: FormGroup = this.formBuilder.group({
-    batchId: ['', [Validators.required]],
-    batchName: new FormControl(''),
-    startDate: new FormControl(''),
-    teacher: new FormControl(''),
-    endDate: new FormControl(''),
-  });
-
-  onEdit(data?: any) {
-    data = {
-      batchId: 1,
-      batchName: 'string',
-      startDate: '2025-01-13T15:26:35.228Z',
-      teacher: 'string',
-      endDate: '2025-01-13T15:26:35.228Z',
-    };
-    this.initializeForm(data);
-  }
-
-  onSave() {
-    this.batchForm.reset();
-    this.batchForm = this.formBuilder.group({
-      batchId: ['', [Validators.required]],
-      batchName: new FormControl(''),
-      startDate: new FormControl(''),
-      teacher: new FormControl(''),
-      endDate: new FormControl(''),
-    });
-  }
+  batchForm: FormGroup = new FormGroup({});
 
   initializeForm(data?: any) {
-    this.batchForm = this.formBuilder.group({
-      batchId: new FormControl(data !== undefined ? data.batchId : 0),
-      batchName: new FormControl(data ? data.batchName : ''),
+    this.batchForm = new FormGroup({
+      batchId: new FormControl(data?.batchId ?? 0, [Validators.required]),
+      batchName: new FormControl(data?.batchName ?? ''),
+      teacher: new FormControl(data?.teacher ?? ''),
       startDate: new FormControl(''),
-      teacher: new FormControl(''),
       endDate: new FormControl(''),
     });
 
     const form = this.batchForm.value;
+  }
+
+  onSave() {
+    let payload = this.batchForm.value;
+
+    payload.startDate = new Date(payload.startDate).toISOString();
+    payload.endDate = new Date(payload.endDate).toISOString();
+    payload.batchId = 0;
+
+    this.batchService.createBatches(payload).subscribe(() => {
+      this.getAllBatches();
+      this.closeModal();
+    });
   }
 
   getAllBatches() {
@@ -113,6 +83,7 @@ export class BatchListComponent {
   }
 
   openModal() {
+    this.batchForm.reset();
     const modal = document.getElementById('studentModal');
     if (modal) {
       modal.style.display = 'block';

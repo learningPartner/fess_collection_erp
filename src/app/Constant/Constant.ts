@@ -27,13 +27,18 @@ export const Constant = {
       DELETE_STUDENT: 'DeleteStudentById',
       GetStudentBatchesWithFees: 'student/GetStudentBatchesWithFees',
     },
-    ENROLLMENT: { GET_ENROLLMENTS: envirURL + 'GetEnrollments' },
+    ENROLLMENT: {
+      GET_ENROLLMENTS: envirURL + 'GetEnrollments',
+      CREATE_ENROLLMENTS: envirURL + 'register-student',
+    },
     DASHBOARD_DATA: { GET_DASHBOARD_DATA: envirURL + 'GetDashboardData' },
     PAYMENTS: {
       GET_FEES: envirURL + 'GetFees',
     },
     BATCH: {
       GET_BATCH: envirURL + 'GetBatches',
+      CREATE_BATCH: envirURL + 'CreateBatch',
+      UPDATE_BATCH: envirURL + 'UpdateBatch',
     },
   },
 
@@ -61,12 +66,12 @@ export const Constant = {
     {
       icon: 'bi bi-cash me-2',
       label: 'Payment',
-      routerLink: '/admin/dashboard',
+      routerLink: '',
     },
     {
       icon: 'bi bi-cash me-2',
       label: 'Pending payments',
-      routerLink: '/admin/dashboard',
+      routerLink: '',
     },
   ],
 
@@ -121,6 +126,88 @@ export const Constant = {
       placeholder: 'Pincode',
       validation_msg: 'Pincode is required',
       min_length_msg: 'Minimum 6 digits is required',
+    },
+  ],
+
+  enrollmentForm: [
+    {
+      type: 'text',
+      formControlName: 'name',
+      id: 'name',
+      label: 'Name',
+      validation_msg: 'Name is required',
+    },
+    {
+      type: 'email',
+      formControlName: 'email',
+      id: 'email',
+      label: 'Email',
+      validation_msg: 'Email is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'phone',
+      id: 'phone',
+      label: 'Phone',
+      validation_msg: 'Phone is required',
+      min_length_msg: 'Minimum 10 digits is required',
+    },
+
+    {
+      type: 'text',
+      formControlName: 'address',
+      id: 'address',
+      label: 'Address',
+      validation_msg: 'Address is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'city',
+      id: 'city',
+      label: 'City',
+      validation_msg: 'City is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'pinCode',
+      id: 'pinCode',
+      label: 'Pincode',
+      validation_msg: 'Pincode is required',
+      min_length_msg: 'Minimum 6 digits is required',
+    },
+
+    {
+      type: 'text',
+      formControlName: 'batchId',
+      id: 'batchId',
+      label: 'Batch Id',
+      validation_msg: 'Batch Id is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'totalFees',
+      id: 'totalFees',
+      label: 'Total Fees',
+      validation_msg: 'totalFees is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'discount',
+      id: 'discount',
+      label: 'Discount',
+    },
+    {
+      type: 'text',
+      formControlName: 'enrolldDate',
+      id: 'enrolldDate',
+      label: 'Enrollment Date',
+      validation_msg: 'Enrollment Date is required',
+    },
+    {
+      type: 'text',
+      formControlName: 'narration',
+      id: 'narration',
+      label: 'Narration',
     },
   ],
 };

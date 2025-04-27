@@ -19,4 +19,8 @@ export class BatchService {
   loadBatches(): Observable<IBatch[]> {
     return this.http.get<IBatch[]>(Constant.API_METHOD.BATCH.GET_BATCH);
   }
+  
+    createBatches(data: any) {
+    return this.http.post(Constant.API_METHOD.BATCH.CREATE_BATCH, data);
+  }
 }
