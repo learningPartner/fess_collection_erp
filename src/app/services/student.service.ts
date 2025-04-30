@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../Constant/Constant';
-import { GenericService } from './generic.service';
 import { Student } from '../Model/interface/Student';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +14,7 @@ export class StudentService {
 
   studentForm: FormGroup = new FormGroup({});
 
-  constructor(private generic: GenericService<Student>) {
+  constructor() {
     this.initializeForm();
   }
 

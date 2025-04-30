@@ -1,9 +1,16 @@
 @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css");
-.batch-card, .enrollment-form, .enrollments-table {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+.enrollment-form,
+.enrollments-table {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  font-size: 1.35rem;
+}
+
+.nav-tabs {
+  margin-left: 10px;
 }

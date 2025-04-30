@@ -1,112 +1,205 @@
-<div class="container py-5">
-  <!-- Batch Form -->
-  <div class="batch-card p-4 mb-5">
-      <h2 class="mb-4 d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-          New Batch
-      </h2>
-      <form id="batchForm">
-          <div class="row g-3">
-              <div class="col-md-6">
-                  <label class="form-label">Batch Name</label>
-                  <input type="text" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Teacher</label>
-                  <input type="text" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Start Date</label>
-                  <input type="date" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">End Date</label>
-                  <input type="date" class="form-control" required>
-              </div>
-              <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Create Batch</button>
-              </div>
-          </div>
-      </form>
-  </div>
-
-  <!-- Enrollment Form -->
-  <div class="enrollment-form p-4 mb-5">
-      <h3 class="mb-4 d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
+<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+  <div class="h-screen flex-grow-1">
+    <ul class="nav nav-tabs bg-surface-secondary" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          [ngClass]="{ active: activeTab === 'new-enrollment' }"
+          (click)="selectTab('new-enrollment'); $event.preventDefault()"
+        >
           New Enrollment
-      </h3>
-      <form id="enrollmentForm">
-          <div class="row g-3">
-              <div class="col-md-6">
-                  <label class="form-label">Student ID</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Total Fees</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Discount</label>
-                  <input type="number" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label">Enrollment Date</label>
-                  <input type="date" class="form-control" required>
-              </div>
-              <div class="col-12">
-                  <label class="form-label">Narration</label>
-                  <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Submit Enrollment</button>
-              </div>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          [ngClass]="{ active: activeTab === 'enrollment-list' }"
+          (click)="selectTab('enrollment-list'); $event.preventDefault()"
+        >
+          Enrollment List
+        </a>
+      </li>
+    </ul>
+    <div class="enrollment-form p-4 mb-5">
+      <div class="tab-content" id="myTabContent">
+        @if(activeTab === 'new-enrollment'){
+        <div class="tab-pane fade show active">
+          <form id="enrollmentForm" [formGroup]="enrollForm">
+            <div class="row g-3">
+              <!--         @for(enrollmentInput of enrollFormInputs; track $index){
+        <div class="col-md-4">
+          <label class="form-label">{{ enrollmentInput.label }}</label>
+          <div class="form-group">
+            <input
+              [type]="enrollmentInput.type"
+              class="form-control"
+              [formControlName]="enrollmentInput.formControlName"
+              [id]="enrollmentInput.id"
+            />
           </div>
-      </form>
-  </div>
+        </div>
+        } -->
 
-  <!-- Enrollments Table -->
-  <div class="enrollments-table p-4">
-      <h3 class="mb-4 d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          Current Enrollments
-      </h3>
-      <div class="table-responsive">
-          <table class="table table-hover">
-              <thead>
-                  <tr>
-                      <th>Enroll ID</th>
-                      <th>Student Name</th>
-                      <th>Batch Name</th>
-                      <th>Enroll Date</th>
-                      <th>Total Fees</th>
-                      <th>Narration</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>100</td>
-                      <td>pranjali 111</td>
-                      <td>Batch Aa</td>
-                      <td>15/01/2024</td>
-                      <td>₹20,000</td>
-                      <td>Regular enrollment</td>
-                  </tr>
-              </tbody>
-          </table>
+              <div class="col-md-4">
+                <label class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="Name"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="Email"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="Phone"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="Address"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="City"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Pincode</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="PinCode"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="batchid" class="form-label">Batch ID</label>
+                <select
+                  name="batchid"
+                  class="form-control"
+                  formControlName="BatchId"
+                  required
+                >
+                  <option value=""><small>Select Batch ID</small></option>
+                  @for(batchId of batches; track $index){
+                  <option [value]="batchId">
+                    {{ batchId }}
+                  </option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Total Fees</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="TotalFees"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Discount</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="Discount"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Enrollment Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="EnrollDate"
+                  required
+                />
+              </div>
+              <div class="col-10">
+                <label class="form-label">Narration</label>
+                <textarea
+                  class="form-control"
+                  formControlName="Narration"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="onSubmitEnrollment()"
+                >
+                  Submit Enrollment
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Enrollments Table -->
+        <div class="enrollments-table mt-8">
+          <h3 class="mb-4 d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="me-2"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            Current Enrollments
+          </h3>
+          <div class="table-responsive">
+            <app-table
+              [columnArray]="columnData"
+              [gridData]="recentEnrollment"
+            ></app-table>
+          </div>
+        </div>
+        } @if(activeTab === 'enrollment-list'){
+        <div class="tab-pane fade show active">
+          <div class="table-responsive">
+            <app-table
+              [columnArray]="columnData"
+              [gridData]="totalEnrollment"
+            ></app-table>
+          </div>
+        </div>
+
+        }
       </div>
+    </div>
   </div>
 </div>
